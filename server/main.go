@@ -19,11 +19,21 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 	buf.WriteTo(w)
 }
 
+func download(w http.ResponseWriter, r *http.Request) {
+	link, err := r.URL.Query()["url"]
+	if !err || len(link[0]) < 1 {
+		fmt.Println("Url param 'link' is missing")
+		return
+	}
+	fmt.Println(link[0])
+}
+
 func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("assets"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	mux.HandleFunc("/", mainPage)
+	mux.HandleFunc("/download", download)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3001"
