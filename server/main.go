@@ -6,6 +6,8 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+
+	handler "github.com/boris-on/rutube-download/server/server_handler"
 )
 
 var main_tpl = template.Must(template.ParseFiles("main.html"))
@@ -17,6 +19,7 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 	buf.WriteTo(w)
+	fmt.Println(handler.CreateAPIUrl("8232r"))
 }
 
 func download(w http.ResponseWriter, r *http.Request) {

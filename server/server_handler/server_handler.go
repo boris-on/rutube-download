@@ -1,4 +1,4 @@
-package handler
+package server_handler
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func extractId(input string) (string, error) {
+func ExtractId(input string) (string, error) {
 	u, err := url.Parse(input)
 	if err != nil {
 		return "", err
@@ -20,7 +20,7 @@ func extractId(input string) (string, error) {
 	}
 }
 
-func createAPIUrl(id string) string {
+func CreateAPIUrl(id string) string {
 	url := url.URL{
 		Scheme: "https",
 		Host:   "rutube.ru",
@@ -28,3 +28,14 @@ func createAPIUrl(id string) string {
 	}
 	return url.String()
 }
+
+// id, err := extractId(link)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	apiUrl := createAPIUrl(id)
+// 	videoData, err := makeAPIRequest(apiUrl)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	fmt.Println(videoData)
