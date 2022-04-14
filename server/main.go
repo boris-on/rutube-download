@@ -19,16 +19,31 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 	buf.WriteTo(w)
-	fmt.Println(handler.CreateAPIUrl("8232r"))
 }
 
 func download(w http.ResponseWriter, r *http.Request) {
-	link, err := r.URL.Query()["url"]
-	if !err || len(link[0]) < 1 {
+	link := r.URL.Query()["url"]
+	if len(link[0]) < 1 {
 		fmt.Println("Url param 'link' is missing")
 		return
 	}
-	fmt.Println(link[0])
+	apiLink, err := handler.CreateAPIUrl(link[0])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	videoOptionsLink, err := handler.VideoOptionsProxyRequest(apiLink)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	videoList, err := handler.VideoListProxyRequest(videoOptionsLink)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Fprintln(w, videoList)
 }
 
 func main() {

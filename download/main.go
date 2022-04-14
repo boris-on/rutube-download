@@ -7,7 +7,7 @@ import (
 	"syscall/js"
 )
 
-func makeAPIRequest(url string) error {
+func makeFirstAPIRequest(url string) error {
 	u := "http://localhost:3001/download" + "?url=" + url
 
 	resp, err := http.Get(u)
@@ -24,9 +24,25 @@ func makeAPIRequest(url string) error {
 	return nil
 }
 
+// функция отправляет первый запрос на сервер, в качестве ответа - json
+// {
+// 	"video1": {
+// 		"resolution": "1920x1080",
+// 		"link": "video1.com"
+// 		},
+// 	"video2": {
+// 		"resolution": "720x360",
+// 		"link": "video2.com"
+// 		}
+// }
 func downloadVideo(this js.Value, i []js.Value) interface{} {
 	link := js.Global().Get("document").Call("getElementById", i[0].String()).Get("value").String()
-	go makeAPIRequest(link)
+	go makeFirstAPIRequest(link)
+	return false
+}
+
+// функция отправляет второй запрос на сервер, в качестве ответа - mp4. Входной параметр - ссылка на видео нужного формата, которая возвращается после первого запроса
+func chooseResolution(this js.Value, i []js.Value) interface{} {
 	return false
 }
 
