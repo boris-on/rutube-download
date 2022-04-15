@@ -228,6 +228,20 @@ func VideoListProxyRequest(link string) (string, error) {
 	// if err := json.Unmarshal(body, &videoOptions); err != nil { // Parse []byte to the go struct pointer
 	// 	return "", err
 	// }
+	fmt.Println(string(body))
+	return string(body), nil
+}
+
+func VideoSegmentsProxyRequest(link string) (string, error) {
+	// url := "proxyserver/video_list" + "?url=" + link
+	url := link
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
 	return string(body), nil
 }
 

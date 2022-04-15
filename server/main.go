@@ -21,6 +21,17 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 	buf.WriteTo(w)
 }
 
+// возвращает json
+// {
+// 	"video1": {
+// 		"resolution": "1920x1080",
+// 		"link": "video1.com"
+// 		},
+// 	"video2": {
+// 		"resolution": "720x360",
+// 		"link": "video2.com"
+// 		}
+// }
 func download(w http.ResponseWriter, r *http.Request) {
 	link := r.URL.Query()["url"]
 	if len(link[0]) < 1 {
@@ -46,12 +57,24 @@ func download(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, videoList)
 }
 
+// возвращает mp4
+func getMP4(w http.ResponseWriter, r *http.Request) {
+	link := r.URL.Query()["url"]
+	if len(link[0]) < 1 {
+		fmt.Println("Url param 'link' is missing")
+		return
+	}
+	// segmentList, err := handler.
+	return
+}
+
 func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("assets"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	mux.HandleFunc("/", mainPage)
 	mux.HandleFunc("/download", download)
+	mux.HandleFunc("/getmp4", getMP4)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3001"
