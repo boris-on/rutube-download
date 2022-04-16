@@ -1,12 +1,15 @@
 package server_handler
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/grafov/m3u8"
 )
 
 func extractId(input string) (string, error) {
@@ -224,12 +227,20 @@ func VideoListProxyRequest(link string) (string, error) {
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
-	// var videoOptions VideoOptions
-	// if err := json.Unmarshal(body, &videoOptions); err != nil { // Parse []byte to the go struct pointer
-	// 	return "", err
-	// }
-	fmt.Println(string(body))
-	return string(body), nil
+	if err != nil {
+		return "", err
+	}
+
+	videoList, _, err := m3u8.Decode(*bytes.NewBuffer(body), true)
+	if err != nil {
+		return "", err
+	}
+
+	videoListJson, err := json.Marshal(videoList.(*m3u8.MasterPlaylist).Variants)
+	if err != nil {
+		return "", err
+	}
+	return string(videoListJson), nil
 }
 
 func VideoSegmentsProxyRequest(link string) (string, error) {
