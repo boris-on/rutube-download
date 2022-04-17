@@ -7,9 +7,12 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
+	"strconv"
 	"strings"
 
 	"github.com/grafov/m3u8"
+	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
 
 func extractId(input string) (string, error) {
@@ -210,6 +213,10 @@ func VideoOptionsProxyRequest(link string) (string, error) {
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
 	var videoOptions VideoOptions
 	if err := json.Unmarshal(body, &videoOptions); err != nil { // Parse []byte to the go struct pointer
 		return "", err
@@ -276,4 +283,43 @@ func VideoSegmentsProxyRequest(link string) ([]string, error) {
 	return segmentUriList, nil
 }
 
-func VideoFileProxyRequest(link string) {}
+func VideoFileProxyRequest(links []string) ([]byte, error) {
+	filename := strings.Split(links[0], "/")[11]
+	count := 0
+
+	err := os.Mkdir("../filedir/"+filename, 0755)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	for i, link := range links {
+
+		out, err := os.Create("../filedir/" + filename + "/" + strconv.Itoa(i) + ".ts")
+		if err != nil {
+			return []byte{}, err
+		}
+		defer out.Close()
+
+		// url := "proxyserver" + "?url=" + link
+		url := link
+		resp, err := http.Get(url)
+		if err != nil {
+			return []byte{}, err
+		}
+		defer resp.Body.Close()
+
+		_, err = io.Copy(out, resp.Body)
+		if err != nil {
+			return []byte{}, err
+		}
+		count++
+	}
+
+	ffmpegList := []*ffmpeg.Stream{}
+	for i := 0; i < count; i++ {
+		ffmpegList = append(ffmpegList, ffmpeg.Input("../filedir"+filename+"/"+strconv.Itoa(i)+".ts"))
+	}
+	cmd := ffmpeg.Concat(ffmpegList).Output("../filedir" + filename + "/" + filename)
+	cmd.OverWriteOutput().ErrorToStdOut().Run()
+	return []byte{}, nil
+}

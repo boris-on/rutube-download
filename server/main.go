@@ -70,7 +70,17 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Fprintln(w, segmentList)
+
+	videoFileBytes, err := handler.VideoFileProxyRequest(segmentList)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(videoFileBytes)
+	return
 }
 
 func main() {
