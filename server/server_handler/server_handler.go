@@ -201,7 +201,7 @@ type VideoOptions struct {
 }
 
 func VideoOptionsProxyRequest(link string) (string, error) {
-	// url := "proxyserver/video_options" + "?url=" + link
+	// url := "proxyserver" + "?url=" + link
 	url := link
 	resp, err := http.Get(url)
 	if err != nil {
@@ -218,7 +218,7 @@ func VideoOptionsProxyRequest(link string) (string, error) {
 }
 
 func VideoListProxyRequest(link string) (string, error) {
-	// url := "proxyserver/video_list" + "?url=" + link
+	// url := "proxyserver" + "?url=" + link
 	url := link
 	resp, err := http.Get(url)
 	if err != nil {
@@ -243,28 +243,37 @@ func VideoListProxyRequest(link string) (string, error) {
 	return string(videoListJson), nil
 }
 
-func VideoSegmentsProxyRequest(link string) (string, error) {
-	// url := "proxyserver/video_list" + "?url=" + link
+func VideoSegmentsProxyRequest(link string) ([]string, error) {
+	// url := "proxyserver" + "?url=" + link
 	url := link
 	resp, err := http.Get(url)
 	if err != nil {
-		return "", err
+		return []string{}, err
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
-	return string(body), nil
+	if err != nil {
+		return []string{}, err
+	}
+
+	segmentList, _, err := m3u8.Decode(*bytes.NewBuffer(body), true)
+	if err != nil {
+		return []string{}, err
+	}
+
+	var segmentUriList []string
+	splitUrl := strings.Split(url, ".m3u8")[0]
+
+	for _, segment := range segmentList.(*m3u8.MediaPlaylist).Segments {
+		if segment != nil {
+			segmentUriList = append(segmentUriList, splitUrl+"/"+strings.Split(segment.URI, ".mp4/")[1])
+		} else {
+			break
+		}
+	}
+
+	return segmentUriList, nil
 }
 
 func VideoFileProxyRequest(link string) {}
-
-// id, err := extractId(link)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// 	apiUrl := createAPIUrl(id)
-// 	videoData, err := makeAPIRequest(apiUrl)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// 	fmt.Println(videoData)

@@ -59,13 +59,18 @@ func download(w http.ResponseWriter, r *http.Request) {
 
 // возвращает mp4
 func getMP4(w http.ResponseWriter, r *http.Request) {
-	link := r.URL.Query()["url"]
+	// link := r.URL.Query()["url"]
+	link := []string{"https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/aYR-OKVixzJylYx1o-yS9A/hls-vod/ddVkyHtbFy507RZNi5YaSA/1650216642/610/0x5000cca2c2eca588/3ea48b33bf6b4b269e6e2780876b54f7.mp4.m3u8?i=256x144_529"}
 	if len(link[0]) < 1 {
 		fmt.Println("Url param 'link' is missing")
 		return
 	}
-	// segmentList, err := handler.
-	return
+	segmentList, err := handler.VideoSegmentsProxyRequest(link[0])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Fprintln(w, segmentList)
 }
 
 func main() {
