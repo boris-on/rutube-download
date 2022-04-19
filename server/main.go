@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
 	"os"
 
@@ -60,7 +61,7 @@ func download(w http.ResponseWriter, r *http.Request) {
 // возвращает mp4
 func getMP4(w http.ResponseWriter, r *http.Request) {
 	// link := r.URL.Query()["url"]
-	link := []string{"https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/aYR-OKVixzJylYx1o-yS9A/hls-vod/ddVkyHtbFy507RZNi5YaSA/1650216642/610/0x5000cca2c2eca588/3ea48b33bf6b4b269e6e2780876b54f7.mp4.m3u8?i=256x144_529"}
+	link := []string{"https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/vN2qZ0WQdLz1A9LaeKCsAQ/hls-vod/avRJVxn3cAeYU58ME0uT7A/1650303209/602/0x5000c500db597325/08c41eb260ac49acac124627e702cc48.mp4.m3u8?i=256x144_530"}
 	if len(link[0]) < 1 {
 		fmt.Println("Url param 'link' is missing")
 		return
@@ -78,8 +79,9 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "application/octet-stream")
-	w.Write(videoFileBytes)
+	w.Header().Set("Content-Type", "video/mp4")
+
+	io.Copy(w, bytes.NewReader(videoFileBytes))
 	return
 }
 

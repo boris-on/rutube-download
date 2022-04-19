@@ -30,7 +30,14 @@
 
     <main>
       <header>
-        <form onsubmit="chooseResolution('link'); return false;">
+        <form onsubmit="chooseResolution('link1'); return false;">
+          <input    
+            placeholder="Введите ссылку, чтобы начать загрузку"
+            type="text"
+            id = "link"
+          />
+        </form>
+        <form onsubmit="downloadVideo('link2'); return false;">
           <input    
             placeholder="Введите ссылку, чтобы начать загрузку"
             type="text"

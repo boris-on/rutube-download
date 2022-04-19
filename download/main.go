@@ -60,8 +60,8 @@ func chooseResolution(this js.Value, i []js.Value) interface{} {
 
 // функция отправляет второй запрос на сервер, в качестве ответа - mp4. Входной параметр - ссылка на видео нужного формата, которая возвращается после первого запроса
 func downloadVideo(this js.Value, i []js.Value) interface{} {
-	// link := js.Global().Get("document").Call("getElementById", i[0].String()).Get("value").String()
-	link := "https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/DNzGdY66tH__TwGxbc6VQw/hls-vod/9ye32Q0lzh-ZbIt33V9yaA/1650042678/602/0x5000c500c90b30aa/be9299d4b09340ddbd20e91b6e559350.mp4.m3u8?i=1920x1080_4768"
+	link := js.Global().Get("document").Call("getElementById", i[0].String()).Get("value").String()
+	// link := "https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/DNzGdY66tH__TwGxbc6VQw/hls-vod/9ye32Q0lzh-ZbIt33V9yaA/1650042678/602/0x5000c500c90b30aa/be9299d4b09340ddbd20e91b6e559350.mp4.m3u8?i=1920x1080_4768"
 	go makeSecondAPIRequest(link)
 	return false
 }

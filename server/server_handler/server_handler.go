@@ -10,6 +10,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/grafov/m3u8"
 	ffmpeg "github.com/u2takey/ffmpeg-go"
@@ -293,8 +294,7 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 	}
 
 	for i, link := range links {
-
-		out, err := os.Create("../filedir/" + filename + "/" + strconv.Itoa(i) + ".ts")
+		out, err := os.Create("../filedir/" + filename + "/" + strconv.Itoa(i+1) + ".ts")
 		if err != nil {
 			return []byte{}, err
 		}
@@ -313,13 +313,49 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 			return []byte{}, err
 		}
 		count++
+
 	}
+
+	err = os.Mkdir("../filedir/"+filename+"/mp", 0755)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	var wg sync.WaitGroup
+
+	for i := 0; i < count; i++ {
+		wg.Add(1)
+		go convertToMP4(&wg, filename, i)
+	}
+
+	wg.Wait()
 
 	ffmpegList := []*ffmpeg.Stream{}
 	for i := 0; i < count; i++ {
-		ffmpegList = append(ffmpegList, ffmpeg.Input("../filedir"+filename+"/"+strconv.Itoa(i)+".ts"))
+		if _, err := os.Stat("../filedir/" + filename + "/mp/" + strconv.Itoa(i) + ".mp4"); err == nil {
+			ffmpegList = append(ffmpegList, ffmpeg.Input("../filedir/"+filename+"/mp/"+strconv.Itoa(i)+".mp4"))
+		}
 	}
-	cmd := ffmpeg.Concat(ffmpegList).Output("../filedir" + filename + "/" + filename)
+
+	cmd := ffmpeg.Concat(ffmpegList).Output("../filedir/" + filename + "/mp/video.mp4")
 	cmd.OverWriteOutput().ErrorToStdOut().Run()
-	return []byte{}, nil
+
+	file, err := os.Open("../filedir/" + filename + "/mp/video.mp4")
+
+	if err != nil {
+		return []byte{}, nil
+	}
+	defer file.Close()
+
+	fileBytes, err := io.ReadAll(file)
+	if err != nil {
+		return []byte{}, nil
+	}
+	return fileBytes, nil
+}
+
+func convertToMP4(wg *sync.WaitGroup, filename string, i int) {
+	defer wg.Done()
+	cmd := ffmpeg.Input("../filedir/" + filename + "/" + strconv.Itoa(i+1) + ".ts").Output("../filedir/" + filename + "/mp/" + strconv.Itoa(i+1) + ".mp4")
+	cmd.OverWriteOutput().ErrorToStdOut().Run()
 }
