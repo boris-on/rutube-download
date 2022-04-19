@@ -1,0 +1,6 @@
+INFO: 2022/04/19 19:43:35 main.go:85: 127.0.0.1:59374 GET /
+INFO: 2022/04/19 19:43:35 main.go:85: 127.0.0.1:59374 GET /assets/download.wasm
+INFO: 2022/04/19 19:43:35 main.go:85: 127.0.0.1:59374 GET /favicon.ico
+INFO: 2022/04/19 19:43:40 main.go:85: 127.0.0.1:59376 GET /download?url=htt
+INFO: 2022/04/19 19:43:53 main.go:85: 127.0.0.1:59376 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/
+INFO: 2022/04/19 19:43:59 main.go:85: 127.0.0.1:59376 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/
