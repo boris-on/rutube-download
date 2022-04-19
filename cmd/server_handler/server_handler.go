@@ -288,13 +288,13 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 	filename := strings.Split(links[0], "/")[11]
 	count := 0
 
-	err := os.Mkdir("../filedir/"+filename, 0755)
+	err := os.Mkdir("../media/"+filename, 0755)
 	if err != nil {
 		return []byte{}, err
 	}
 
 	for i, link := range links {
-		out, err := os.Create("../filedir/" + filename + "/" + strconv.Itoa(i+1) + ".ts")
+		out, err := os.Create("../media/" + filename + "/" + strconv.Itoa(i+1) + ".ts")
 		if err != nil {
 			return []byte{}, err
 		}
@@ -316,7 +316,7 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 
 	}
 
-	err = os.Mkdir("../filedir/"+filename+"/mp", 0755)
+	err = os.Mkdir("../media/"+filename+"/mp", 0755)
 	if err != nil {
 		return []byte{}, err
 	}
@@ -332,15 +332,15 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 
 	ffmpegList := []*ffmpeg.Stream{}
 	for i := 0; i < count; i++ {
-		if _, err := os.Stat("../filedir/" + filename + "/mp/" + strconv.Itoa(i) + ".mp4"); err == nil {
-			ffmpegList = append(ffmpegList, ffmpeg.Input("../filedir/"+filename+"/mp/"+strconv.Itoa(i)+".mp4"))
+		if _, err := os.Stat("../media/" + filename + "/mp/" + strconv.Itoa(i) + ".mp4"); err == nil {
+			ffmpegList = append(ffmpegList, ffmpeg.Input("../media/"+filename+"/mp/"+strconv.Itoa(i)+".mp4"))
 		}
 	}
 
-	cmd := ffmpeg.Concat(ffmpegList).Output("../filedir/" + filename + "/mp/video.mp4")
+	cmd := ffmpeg.Concat(ffmpegList).Output("../media/" + filename + "/mp/video.mp4")
 	cmd.OverWriteOutput().ErrorToStdOut().Run()
 
-	file, err := os.Open("../filedir/" + filename + "/mp/video.mp4")
+	file, err := os.Open("../media/" + filename + "/mp/video.mp4")
 
 	if err != nil {
 		return []byte{}, nil
@@ -356,6 +356,6 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 
 func convertToMP4(wg *sync.WaitGroup, filename string, i int) {
 	defer wg.Done()
-	cmd := ffmpeg.Input("../filedir/" + filename + "/" + strconv.Itoa(i+1) + ".ts").Output("../filedir/" + filename + "/mp/" + strconv.Itoa(i+1) + ".mp4")
+	cmd := ffmpeg.Input("../media/" + filename + "/" + strconv.Itoa(i+1) + ".ts").Output("../media/" + filename + "/mp/" + strconv.Itoa(i+1) + ".mp4")
 	cmd.OverWriteOutput().ErrorToStdOut().Run()
 }

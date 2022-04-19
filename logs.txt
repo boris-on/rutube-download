@@ -4,3 +4,7 @@ INFO: 2022/04/19 19:43:35 main.go:85: 127.0.0.1:59374 GET /favicon.ico
 INFO: 2022/04/19 19:43:40 main.go:85: 127.0.0.1:59376 GET /download?url=htt
 INFO: 2022/04/19 19:43:53 main.go:85: 127.0.0.1:59376 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/
 INFO: 2022/04/19 19:43:59 main.go:85: 127.0.0.1:59376 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/
+INFO: 2022/04/19 19:45:39 main.go:85: 127.0.0.1:59378 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/
+INFO: 2022/04/19 19:45:50 main.go:85: 127.0.0.1:59378 GET /getmp4?url=https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/L3SAZ7dTi9tg-M22mizm-A/hls-vod/KWs42PUHDnTUFbsFkuLUCw/1650408339/602/0x5000c500db597325/08c41eb260ac49acac124627e702cc48.mp4.m3u8?i=256x144_530
+INFO: 2022/04/19 19:46:49 main.go:85: 127.0.0.1:59380 GET /getmp4?url=https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/L3SAZ7dTi9tg-M22mizm-A/hls-vod/KWs42PUHDnTUFbsFkuLUCw/1650408339/602/0x5000c500db597325/08c41eb260ac49acac124627e702cc48.mp4.m3u8?i=256x144_530
+INFO: 2022/04/19 19:47:10 main.go:85: 127.0.0.1:59382 GET /getmp4?url=https://salam-1.rutube.ru/dive/river-1-301.rutube.ru/L3SAZ7dTi9tg-M22mizm-A/hls-vod/KWs42PUHDnTUFbsFkuLUCw/1650408339/602/0x5000c500db597325/08c41eb260ac49acac124627e702cc48.mp4.m3u8?i=256x144_530
