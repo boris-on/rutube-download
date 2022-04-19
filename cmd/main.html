@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html" />
+    <title>Скачать видео с Rutube бесплатно - Rutubeto</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+
+  </head>
+  <body>
+    <script src="assets/wasm_exec.js"></script>
+
+    <script>
+        // Polyfill
+        if (!WebAssembly.instantiateStreaming) {
+        WebAssembly.instantiateStreaming = async (resp, importObject) => {
+            const source = await (await resp).arrayBuffer();
+            return await WebAssembly.instantiate(source, importObject);
+        };
+        }
+
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("assets/download.wasm"), go.importObject).then(async result => {
+        mod = result.module;
+        inst = result.instance;
+        await go.run(inst);
+        });
+    </script>
+
+    <main>
+      <header>
+        <form onsubmit="chooseResolution('link1'); return false;">
+          <input    
+            placeholder="Введите ссылку, чтобы начать загрузку"
+            type="text"
+            id = "link1"
+          />
+        </form>
+        <form onsubmit="downloadVideo('link2'); return false;">
+          <input    
+            placeholder="Введите ссылку, чтобы начать загрузку"
+            type="text"
+            id = "link2"
+          />
+        </form>
+      </header>
+    </main>
+  </body>
+</html>
