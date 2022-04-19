@@ -1,5 +1,5 @@
 # rutube-download
 ```bash
-cd server
+cd cmd
 go run main.go
 ```
