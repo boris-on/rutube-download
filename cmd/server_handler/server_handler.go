@@ -351,6 +351,12 @@ func VideoFileProxyRequest(links []string) ([]byte, error) {
 	if err != nil {
 		return []byte{}, nil
 	}
+
+	err = os.RemoveAll("../media/" + filename)
+	if err != nil {
+		return []byte{}, nil
+	}
+
 	return fileBytes, nil
 }
 
