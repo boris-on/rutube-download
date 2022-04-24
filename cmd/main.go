@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -60,6 +59,7 @@ func download(w http.ResponseWriter, r *http.Request) {
 	}
 
 	videoOptionsLink, err := handler.VideoOptionsProxyRequest(apiLink)
+
 	if err != nil {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Видео не найдено"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
@@ -88,17 +88,19 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	videoFileBytes, err := handler.VideoFileProxyRequest(segmentList)
+	tsList, err := handler.VideoFileProxyRequest(segmentList)
+
 	if err != nil {
 		fmt.Fprintln(w, newErrorResponse("video_error", "Ошибка при обработке видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
 		return
 	}
-
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "video/mp4")
+	fmt.Fprintln(w, tsList)
+	// w.WriteHeader(http.StatusOK)
+	// w.Header().Set("Content-Type", "video/ts")
 
-	io.Copy(w, bytes.NewReader(videoFileBytes))
+	// io.Copy(w, bytes.NewReader(videoFileBytes))
 	return
 }
 

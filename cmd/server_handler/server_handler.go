@@ -7,11 +7,11 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 	"strings"
 	"sync"
 
+	"github.com/google/uuid"
 	"github.com/grafov/m3u8"
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
@@ -284,84 +284,116 @@ func VideoSegmentsProxyRequest(link string) ([]string, error) {
 	return segmentUriList, nil
 }
 
-func VideoFileProxyRequest(links []string) ([]byte, error) {
-	filename := strings.Split(links[0], "/")[11]
-	count := 0
+func getSegment(fileMap *sync.Map, index int, url string, filename string, wg *sync.WaitGroup) error {
+	defer wg.Done()
 
-	err := os.Mkdir("../media/"+filename, 0755)
+	// out, err := os.Create("../media/" + filename + "/" + strconv.Itoa(index+1) + ".ts")
+	// if err != nil {
+	// 	close(ch)
+	// 	return err
+	// }
+	// defer out.Close()
+
+	resp, err := http.Get(url)
 	if err != nil {
-		return []byte{}, err
+		return err
 	}
+	defer resp.Body.Close()
 
-	for i, link := range links {
-		out, err := os.Create("../media/" + filename + "/" + strconv.Itoa(i+1) + ".ts")
-		if err != nil {
-			return []byte{}, err
-		}
-		defer out.Close()
-
-		// url := "proxyserver" + "?url=" + link
-		url := link
-		resp, err := http.Get(url)
-		if err != nil {
-			return []byte{}, err
-		}
-		defer resp.Body.Close()
-
-		_, err = io.Copy(out, resp.Body)
-		if err != nil {
-			return []byte{}, err
-		}
-		count++
-
-	}
-
-	err = os.Mkdir("../media/"+filename+"/mp", 0755)
+	// _, err = io.Copy(out, resp.Body)
+	// if err != nil {
+	// 	close(ch)
+	// 	return err
+	// }
+	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return []byte{}, err
+		return err
 	}
+	fileMap.Store("segment"+strconv.Itoa(index+1)+".ts", bodyBytes)
 
-	var wg sync.WaitGroup
-
-	for i := 0; i < count; i++ {
-		wg.Add(1)
-		go convertToMP4(&wg, filename, i)
-	}
-
-	wg.Wait()
-
-	ffmpegList := []*ffmpeg.Stream{}
-	for i := 0; i < count; i++ {
-		if _, err := os.Stat("../media/" + filename + "/mp/" + strconv.Itoa(i) + ".mp4"); err == nil {
-			ffmpegList = append(ffmpegList, ffmpeg.Input("../media/"+filename+"/mp/"+strconv.Itoa(i)+".mp4"))
-		}
-	}
-
-	cmd := ffmpeg.Concat(ffmpegList).Output("../media/" + filename + "/mp/video.mp4")
-	cmd.OverWriteOutput().ErrorToStdOut().Run()
-
-	file, err := os.Open("../media/" + filename + "/mp/video.mp4")
-
-	if err != nil {
-		return []byte{}, nil
-	}
-	defer file.Close()
-
-	fileBytes, err := io.ReadAll(file)
-	if err != nil {
-		return []byte{}, nil
-	}
-
-	err = os.RemoveAll("../media/" + filename)
-	if err != nil {
-		return []byte{}, nil
-	}
-
-	return fileBytes, nil
+	return nil
 }
 
-func convertToMP4(wg *sync.WaitGroup, filename string, i int) {
+func VideoFileProxyRequest(links []string) (string, error) {
+	filename := uuid.New().String()
+
+	// err := os.Mkdir("../media/"+filename, 0755)
+	// if err != nil {
+	// 	return "", err
+	// }
+	var tsMap sync.Map
+	var waitSegmentsGroup sync.WaitGroup
+	for i, link := range links {
+		waitSegmentsGroup.Add(1)
+		go getSegment(&tsMap, i, link, filename, &waitSegmentsGroup)
+
+	}
+	waitSegmentsGroup.Wait()
+	// err = os.Mkdir("../media/"+filename+"/mp", 0755)
+	// if err != nil {
+	// 	return []byte{}, err
+	// }
+
+	// var waitConvertGrouo sync.WaitGroup
+	// ch := make(chan int, 16)
+	// for i := 0; i < count; i++ {
+	// 	waitConvertGrouo.Add(1)
+	// 	ch <- 1
+	// 	go convertToMP4(&waitConvertGrouo, ch, filename, i)
+	// }
+
+	// waitConvertGrouo.Wait()
+
+	// ffmpegList := []*ffmpeg.Stream{}
+	// for i := 0; i < count; i++ {
+	// 	if _, err := os.Stat("../media/" + filename + "/mp/" + strconv.Itoa(i) + ".mp4"); err == nil {
+	// 		ffmpegList = append(ffmpegList, ffmpeg.Input("../media/"+filename+"/mp/"+strconv.Itoa(i)+".mp4"))
+	// 	}
+	// }
+
+	// cmd := ffmpeg.Concat(ffmpegList).Output("../media/" + filename + "/mp/video.mp4")
+	// cmd.OverWriteOutput().ErrorToStdOut().Run()
+
+	// file, err := os.Open("../media/" + filename + "/mp/video.mp4")
+
+	// if err != nil {
+	// 	return []byte{}, nil
+	// }
+	// defer file.Close()
+
+	// fileBytes, err := io.ReadAll(file)
+	// if err != nil {
+	// 	return []byte{}, nil
+	// }
+
+	// err = os.RemoveAll("../media/" + filename)
+	// if err != nil {
+	// 	return err
+	// }
+	// fmt.Println(tsMap)
+	// tsMap.Range(func(key interface{}, value interface{}) bool {
+	// 	fmt.Println(key, value)
+	// 	return true
+	// })
+	typedTsMap := make(map[string]interface{})
+	tsMap.Range(func(key interface{}, value interface{}) bool {
+		typedTsMap[key.(string)] = value
+		return true
+	})
+
+	jsonTsMap, err := json.Marshal(typedTsMap)
+	if err != nil {
+		return "", err
+	}
+
+	// fmt.Println(tsMapJson)
+	return string(jsonTsMap), nil
+	// return fileBytes, nil
+}
+
+func convertToMP4(wg *sync.WaitGroup, ch chan int, filename string, i int) {
 	defer wg.Done()
 	cmd := ffmpeg.Input("../media/" + filename + "/" + strconv.Itoa(i+1) + ".ts").Output("../media/" + filename + "/mp/" + strconv.Itoa(i+1) + ".mp4")
 	cmd.OverWriteOutput().ErrorToStdOut().Run()
+	<-ch
 }

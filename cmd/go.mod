@@ -3,6 +3,7 @@ module github.com/boris-on/rutube-download/cmd
 go 1.17
 
 require (
+	github.com/google/uuid v1.1.1
 	github.com/grafov/m3u8 v0.11.1
 	github.com/u2takey/ffmpeg-go v0.4.1
 )
