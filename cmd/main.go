@@ -47,6 +47,11 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 
 func download(w http.ResponseWriter, r *http.Request) {
 	link := r.URL.Query()["url"]
+	if len(link) == 0 {
+		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
+		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
+		return
+	}
 	if len(link[0]) < 1 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
@@ -77,6 +82,11 @@ func download(w http.ResponseWriter, r *http.Request) {
 
 func getMP4(w http.ResponseWriter, r *http.Request) {
 	link := r.URL.Query()["url"]
+	if len(link) == 0 {
+		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
+		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
+		return
+	}
 	if len(link[0]) < 1 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
@@ -109,6 +119,11 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 func getSegment(w http.ResponseWriter, r *http.Request) {
 	uuid := r.URL.Query()["uuid"]
 	segment := r.URL.Query()["segment"]
+	if len(uuid) == 0 || len(segment) == 0 {
+		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
+		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
+		return
+	}
 	if len(uuid[0]) < 1 || len(segment) < 1 {
 		fmt.Fprintln(w, newErrorResponse("video_error", "Ошибка при обработке видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)

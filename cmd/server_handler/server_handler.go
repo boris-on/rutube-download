@@ -388,6 +388,11 @@ func GetSegmentFromServer(uuid string, segment string) ([]byte, error) {
 	if err != nil {
 		return []byte{}, err
 	}
+
+	err = os.Remove("../media/" + uuid + "/" + segment + ".ts")
+	if err != nil {
+		return []byte{}, err
+	}
 	return fileBytes, nil
 }
 

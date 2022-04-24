@@ -771,3 +771,13 @@ INFO: 2022/04/24 16:55:15 main.go:152: 127.0.0.1:40316 GET /getmp4?url=https://s
 INFO: 2022/04/24 16:55:15 main.go:152: 127.0.0.1:40318 GET /getmp4?url=https://salam-2.rutube.ru/dive/river-1-401.rutube.ru/eGDZOMd1F2PywylnHzKWfw/hls-vod/jLvuw3LuZIsosSQY1uoQcg/1650829818/606/0x5000039b58c8926d/fdc15f74b4a74ea2b6714d32d74c4097.mp4.m3u8?i=1920x1080_5631 200
 INFO: 2022/04/24 16:56:50 main.go:152: 127.0.0.1:40322 GET /getsegment?uuid=b5e6a7ce-abcd-49df-8736-bd98e79fa489&segment=2 200
 INFO: 2022/04/24 17:17:09 main.go:152: 127.0.0.1:40324 GET /getsegment?uuid=b5e6a7ce-abcd-49df-8736-bd98e79fa489&segment=2 200
+INFO: 2022/04/24 20:21:15 main.go:152: 127.0.0.1:40328 GET / 200
+INFO: 2022/04/24 20:21:15 main.go:152: 127.0.0.1:40328 GET /favicon.ico 200
+INFO: 2022/04/24 20:21:26 main.go:152: 127.0.0.1:40332 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/ 200
+WARNING: 2022/04/24 20:24:16 main.go:52: 127.0.0.1:40394 GET /download
+INFO: 2022/04/24 20:24:16 main.go:167: 127.0.0.1:40394 GET /download 200
+INFO: 2022/04/24 20:24:22 main.go:167: 127.0.0.1:40394 GET / 200
+INFO: 2022/04/24 20:24:30 main.go:167: 127.0.0.1:40394 GET /download?url=https://rutube.ru/video/b25989c1fd9b9eb9320d5cd9c18c35f2/ 200
+INFO: 2022/04/24 20:25:06 main.go:167: 127.0.0.1:40394 GET /getmp4?url=https://salam-2.rutube.ru/dive/river-1-301.rutube.ru/9EyW0fto9XJrSrErEXqiHQ/hls-vod/7uAlWKLz2h-6fQgm7oEevw/1650842670/604/0x5000c500db732ffe/be9299d4b09340ddbd20e91b6e559350.mp4.m3u8?i=1920x1080_4768%22 200
+INFO: 2022/04/24 20:25:06 main.go:167: 127.0.0.1:40396 GET /getmp4?url=https://salam-2.rutube.ru/dive/river-1-301.rutube.ru/9EyW0fto9XJrSrErEXqiHQ/hls-vod/7uAlWKLz2h-6fQgm7oEevw/1650842670/604/0x5000c500db732ffe/be9299d4b09340ddbd20e91b6e559350.mp4.m3u8?i=1920x1080_4768%22 200
+INFO: 2022/04/24 20:25:06 main.go:167: 127.0.0.1:40398 GET /getmp4?url=https://salam-2.rutube.ru/dive/river-1-301.rutube.ru/9EyW0fto9XJrSrErEXqiHQ/hls-vod/7uAlWKLz2h-6fQgm7oEevw/1650842670/604/0x5000c500db732ffe/be9299d4b09340ddbd20e91b6e559350.mp4.m3u8?i=1920x1080_4768%22 200
