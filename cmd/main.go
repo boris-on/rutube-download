@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -88,7 +89,7 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tsList, err := handler.VideoFileProxyRequest(segmentList)
+	segmentsInfo, err := handler.VideoFileProxyRequest(segmentList)
 
 	if err != nil {
 		fmt.Fprintln(w, newErrorResponse("video_error", "Ошибка при обработке видео"))
@@ -96,11 +97,34 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintln(w, tsList)
+
+	fmt.Fprintln(w, segmentsInfo)
 	// w.WriteHeader(http.StatusOK)
 	// w.Header().Set("Content-Type", "video/ts")
 
 	// io.Copy(w, bytes.NewReader(videoFileBytes))
+	return
+}
+
+func getSegment(w http.ResponseWriter, r *http.Request) {
+	uuid := r.URL.Query()["uuid"]
+	segment := r.URL.Query()["segment"]
+	if len(uuid[0]) < 1 || len(segment) < 1 {
+		fmt.Fprintln(w, newErrorResponse("video_error", "Ошибка при обработке видео"))
+		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
+		return
+	}
+	fileBytes, err := handler.GetSegmentFromServer(uuid[0], segment[0])
+	if err != nil {
+		fmt.Fprintln(w, newErrorResponse("video_error", "Ошибка при обработке видео"))
+		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "video/ts")
+
+	io.Copy(w, bytes.NewReader(fileBytes))
 	return
 }
 
@@ -150,7 +174,7 @@ func main() {
 	mux.HandleFunc("/", mainPage)
 	mux.HandleFunc("/download", download)
 	mux.HandleFunc("/getmp4", getMP4)
-
+	mux.HandleFunc("/getsegment", getSegment)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3001"

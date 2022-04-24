@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -284,15 +286,14 @@ func VideoSegmentsProxyRequest(link string) ([]string, error) {
 	return segmentUriList, nil
 }
 
-func getSegment(fileMap *sync.Map, index int, url string, filename string, wg *sync.WaitGroup) error {
+func getSegment(index int, url string, filename string, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
-	// out, err := os.Create("../media/" + filename + "/" + strconv.Itoa(index+1) + ".ts")
-	// if err != nil {
-	// 	close(ch)
-	// 	return err
-	// }
-	// defer out.Close()
+	out, err := os.Create("../media/" + filename + "/" + strconv.Itoa(index+1) + ".ts")
+	if err != nil {
+		return err
+	}
+	defer out.Close()
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -300,16 +301,10 @@ func getSegment(fileMap *sync.Map, index int, url string, filename string, wg *s
 	}
 	defer resp.Body.Close()
 
-	// _, err = io.Copy(out, resp.Body)
-	// if err != nil {
-	// 	close(ch)
-	// 	return err
-	// }
-	bodyBytes, err := io.ReadAll(resp.Body)
+	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		return err
 	}
-	fileMap.Store("segment"+strconv.Itoa(index+1)+".ts", bodyBytes)
 
 	return nil
 }
@@ -317,15 +312,14 @@ func getSegment(fileMap *sync.Map, index int, url string, filename string, wg *s
 func VideoFileProxyRequest(links []string) (string, error) {
 	filename := uuid.New().String()
 
-	// err := os.Mkdir("../media/"+filename, 0755)
-	// if err != nil {
-	// 	return "", err
-	// }
-	var tsMap sync.Map
+	err := os.Mkdir("../media/"+filename, 0755)
+	if err != nil {
+		return "", err
+	}
 	var waitSegmentsGroup sync.WaitGroup
 	for i, link := range links {
 		waitSegmentsGroup.Add(1)
-		go getSegment(&tsMap, i, link, filename, &waitSegmentsGroup)
+		go getSegment(i, link, filename, &waitSegmentsGroup)
 
 	}
 	waitSegmentsGroup.Wait()
@@ -375,20 +369,26 @@ func VideoFileProxyRequest(links []string) (string, error) {
 	// 	fmt.Println(key, value)
 	// 	return true
 	// })
-	typedTsMap := make(map[string]interface{})
-	tsMap.Range(func(key interface{}, value interface{}) bool {
-		typedTsMap[key.(string)] = value
-		return true
-	})
-
-	jsonTsMap, err := json.Marshal(typedTsMap)
+	// return fileBytes, nil
+	segmentsInfo := &SegmentsInfo{Uuid: filename, SegmentsNum: len(links)}
+	jsonSegmentsInfo, err := json.Marshal(&segmentsInfo)
 	if err != nil {
 		return "", err
 	}
+	return string(jsonSegmentsInfo), nil
+}
 
-	// fmt.Println(tsMapJson)
-	return string(jsonTsMap), nil
-	// return fileBytes, nil
+type SegmentsInfo struct {
+	Uuid        string `json:"uuid"`
+	SegmentsNum int    `json:"segmentsNumber"`
+}
+
+func GetSegmentFromServer(uuid string, segment string) ([]byte, error) {
+	fileBytes, err := ioutil.ReadFile("../media/" + uuid + "/" + segment + ".ts")
+	if err != nil {
+		return []byte{}, err
+	}
+	return fileBytes, nil
 }
 
 func convertToMP4(wg *sync.WaitGroup, ch chan int, filename string, i int) {
