@@ -150,3 +150,17 @@ ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developer
   libswscale      6.  6.100 /  6.  6.100
   libswresample   4.  6.100 /  4.  6.100
 buffer/ts/1.ts: No such file or directory
+
+null
+Command failed: ffmpeg -i buffer/ts/1.ts buffer/mp4/1.mp4
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+buffer/ts/1.ts: No such file or directory
