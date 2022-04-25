@@ -1,9 +1,61 @@
 // /routing/index.js
 // Для начала установим зависимости.
-const url = require('url');
+
+
+//import { LOGS_FILE } from './js/variables.js'
+
+/* import { save_logs } from './logs/logs.js';
+
+    Need to rewrite this shit at logs.js     */
+
 const fs = require('fs');
 
+function save_logs(log, file)
+{
+    fs.appendFile(file, `\n${log}`, (error) => {
+        return error;
+    });
+    return true;
+}
+
+
+
+const url = require('url');
+
+const { exec } = require("child_process");
+
+
+const convert = function(name) {
+  exec(`ffmpeg -i buffer/ts/${name}.ts buffer/mp4/${name}.mp4`, (error, stdout, stderr) => {
+    if (error) 
+    {
+        console.log(save_logs(error.message, './front/routing/logs/logs.txt'));
+        return;
+    }
+    if (stderr) 
+    {
+        save_logs(stderr, './front/routing/logs/logs.txt');
+        return;
+    }
+    if (stdout)
+    { 
+        console.log(`stdout: ${stdout}`)
+        return;
+    }
+  });
+  exec(`rm buffer/ts/${name}.ts`, (msg) => {
+    return save_logs(msg, './front/routing/logs/logs.txt');
+  });
+};
+
+const req_proc = function(data)
+{
+  if (data.name) convert(data.name);
+}
+
+
 const define = function(req, res, postData) {
+    //console.log(req, res, postData);
     // Теперь получаем наш адрес. Если мы переходим на localhost:3000/test, то path будет '/test'
     const urlParsed = url.parse(req.url, true);
     let path = urlParsed.pathname;
@@ -17,7 +69,7 @@ const define = function(req, res, postData) {
     // файлам, например: style.css, test.js, song.mp3
     if(/\./.test(path)) 
     {
-        if(path == '/favicon.png') 
+      if(path == '/favicon.png') 
         {
             // Если нужна фавиконка - возвращаем её, путь для неё всегда будет 'favicon.ico'
             // Получается, если добавить в начале prePath, будет: '/var/www/html/nodejs/routing/favicon.ico'.
@@ -113,4 +165,8 @@ const define = function(req, res, postData) {
         });
     }
 };
+
+
 exports.define = define;
+exports.convert = convert;
+exports.req_proc = req_proc;

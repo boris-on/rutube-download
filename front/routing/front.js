@@ -1,5 +1,5 @@
 /**=================================================================*\
-***                         GAME PROCESSING                         **
+***                         FRONT PROCESSING                        **
 \**=================================================================*/
 
 /**=================================================================*/
@@ -8,6 +8,8 @@ import { clearCont } from './js/clear.js';
 
 import { crtFirstFrame, crtFormat,
          crtLoadWrn              } from './js/conf_page.js';
+
+import { cnvrt_file } from './js/convert.js'; 
 
 /**=================================================================*/
 
@@ -64,46 +66,50 @@ function rqstServer(_quality)
             
             case 'quality_select_1':
 
-                /* request to back server; 240px*/ rqstServer(240);
+                /* request to back server; 240px*/ //rqstServer(240);
 
                 clearCont(body, {'elem' : 'format_selector'});
                 clearCont(body, {'elem' : 'video_preview'});
                 crtLoadWrn(body);
 
                 /* get JSON here ----> */
+                cnvrt_file('1'); /* '1' ----> file name */
                 break;
 
             case 'quality_select_2':
 
-                /* request to back server; 480px*/ rqstServer(480);
+                /* request to back server; 480px*/ //rqstServer(480);
 
                 clearCont(body, {'elem' : 'format_selector'});
                 clearCont(body, {'elem' : 'video_preview'});
                 crtLoadWrn(body);
 
                 /* get JSON here ----> */
+                cnvrt_file('1'); /* '1' ----> file name */
                 break;
 
             case 'quality_select_3':
 
-                /* request to back server; 720px*/ rqstServer(720);
+                /* request to back server; 720px*/ //rqstServer(720);
 
                 clearCont(body, {'elem' : 'format_selector'});
                 clearCont(body, {'elem' : 'video_preview'});
                 crtLoadWrn(body);
 
                 /* get JSON here ----> */
+                cnvrt_file('1'); /* '1' ----> file name */
                 break;
 
             case 'quality_select_4':
 
-                /* request to back server; 1024px*/ rqstServer(1024);
+                /* request to back server; 1024px*/ //rqstServer(1024);
 
                 clearCont(body, {'elem' : 'format_selector'});
                 clearCont(body, {'elem' : 'video_preview'});
                 crtLoadWrn(body);
 
                 /* get JSON here ----> */
+                cnvrt_file('1'); /* '1' ----> file name */
                 break;
             
             default:

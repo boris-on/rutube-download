@@ -1,4 +1,8 @@
-# RUTUBETO.ru
+# Front RUTUBETO.ry
+
+## Setup
+    1. https://ffmpeg.org to download package
+    2. check ./ffmpeg/INSTALL.md
 
 ## Files
 

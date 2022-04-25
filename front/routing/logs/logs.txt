@@ -1,0 +1,152 @@
+
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+[mpegts @ 0x7fb32b4001c0] start time for stream 2 is not set in estimate_timings_from_pts
+Input #0, mpegts, from '1.ts':
+  Duration: 00:00:08.34, start: 0.101000, bitrate: 1419 kb/s
+  Program 1 
+  Stream #0:0[0x100]: Video: h264 (Constrained Baseline) ([27][0][0][0] / 0x001B), yuv420p(tv, bt709, progressive), 640x360 [SAR 1:1 DAR 16:9], 29.97 fps, 29.97 tbr, 90k tbn
+  Stream #0:1[0x101]: Audio: aac (LC) ([15][0][0][0] / 0x000F), 44100 Hz, stereo, fltp, 67 kb/s
+  Stream #0:2[0x102]: Data: timed_id3 (ID3  / 0x20334449)
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> mpeg4 (native))
+  Stream #0:1 -> #0:1 (aac (native) -> aac (native))
+Press [q] to stop, [?] for help
+Output #0, mp4, to '1.mp4':
+  Metadata:
+    encoder         : Lavf59.23.100
+  Stream #0:0: Video: mpeg4 (mp4v / 0x7634706D), yuv420p(tv, bt709, progressive), 640x360 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 29.97 fps, 30k tbn
+    Metadata:
+      encoder         : Lavc59.27.100 mpeg4
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/200000 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s
+    Metadata:
+      encoder         : Lavc59.27.100 aac
+frame=    5 fps=0.0 q=2.0 size=       0kB time=00:00:00.13 bitrate=   2.6kbits/s speed=3.21x    frame=  146 fps=0.0 q=31.0 size=     256kB time=00:00:04.83 bitrate= 433.5kbits/s speed=8.76x    frame=  228 fps=217 q=31.0 size=     512kB time=00:00:07.57 bitrate= 553.8kbits/s speed=7.19x    frame=  250 fps=217 q=31.0 Lsize=     705kB time=00:00:08.35 bitrate= 691.2kbits/s speed=7.26x    
+video:565kB audio:132kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.233620%
+[aac @ 0x7fb32b51c6c0] Qavg: 1898.767
+
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+[mpegts @ 0x7f95d950ac40] start time for stream 2 is not set in estimate_timings_from_pts
+Input #0, mpegts, from 'buffer/1.ts':
+  Duration: 00:00:08.34, start: 0.101000, bitrate: 1419 kb/s
+  Program 1 
+  Stream #0:0[0x100]: Video: h264 (Constrained Baseline) ([27][0][0][0] / 0x001B), yuv420p(tv, bt709, progressive), 640x360 [SAR 1:1 DAR 16:9], 29.97 fps, 29.97 tbr, 90k tbn
+  Stream #0:1[0x101]: Audio: aac (LC) ([15][0][0][0] / 0x000F), 44100 Hz, stereo, fltp, 67 kb/s
+  Stream #0:2[0x102]: Data: timed_id3 (ID3  / 0x20334449)
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> mpeg4 (native))
+  Stream #0:1 -> #0:1 (aac (native) -> aac (native))
+Press [q] to stop, [?] for help
+Output #0, mp4, to 'buffer/1.mp4':
+  Metadata:
+    encoder         : Lavf59.23.100
+  Stream #0:0: Video: mpeg4 (mp4v / 0x7634706D), yuv420p(tv, bt709, progressive), 640x360 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 29.97 fps, 30k tbn
+    Metadata:
+      encoder         : Lavc59.27.100 mpeg4
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/200000 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s
+    Metadata:
+      encoder         : Lavc59.27.100 aac
+frame=    5 fps=0.0 q=2.0 size=       0kB time=00:00:00.13 bitrate=   2.6kbits/s speed=2.66x    frame=  125 fps=0.0 q=31.0 size=     256kB time=00:00:04.13 bitrate= 506.9kbits/s speed= 7.5x    frame=  250 fps=240 q=31.0 Lsize=     705kB time=00:00:08.35 bitrate= 691.2kbits/s speed=8.01x    
+video:565kB audio:132kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.233620%
+[aac @ 0x7f95d95122c0] Qavg: 1898.767
+
+null
+Command failed: ffmpeg -i buffer/1.ts buffer/1.mp4
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+buffer/1.ts: No such file or directory
+
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+[mpegts @ 0x7fb3a7701780] start time for stream 2 is not set in estimate_timings_from_pts
+Input #0, mpegts, from 'buffer/ts/1.ts':
+  Duration: 00:00:08.34, start: 0.101000, bitrate: 1419 kb/s
+  Program 1 
+  Stream #0:0[0x100]: Video: h264 (Constrained Baseline) ([27][0][0][0] / 0x001B), yuv420p(tv, bt709, progressive), 640x360 [SAR 1:1 DAR 16:9], 29.97 fps, 29.97 tbr, 90k tbn
+  Stream #0:1[0x101]: Audio: aac (LC) ([15][0][0][0] / 0x000F), 44100 Hz, stereo, fltp, 67 kb/s
+  Stream #0:2[0x102]: Data: timed_id3 (ID3  / 0x20334449)
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> mpeg4 (native))
+  Stream #0:1 -> #0:1 (aac (native) -> aac (native))
+Press [q] to stop, [?] for help
+Output #0, mp4, to 'buffer/mp4/1.mp4':
+  Metadata:
+    encoder         : Lavf59.23.100
+  Stream #0:0: Video: mpeg4 (mp4v / 0x7634706D), yuv420p(tv, bt709, progressive), 640x360 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 29.97 fps, 30k tbn
+    Metadata:
+      encoder         : Lavc59.27.100 mpeg4
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/200000 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s
+    Metadata:
+      encoder         : Lavc59.27.100 aac
+frame=    5 fps=0.0 q=2.0 size=       0kB time=00:00:00.13 bitrate=   2.6kbits/s speed=2.82x    frame=  105 fps=0.0 q=31.0 size=     256kB time=00:00:03.47 bitrate= 604.4kbits/s speed=6.32x    frame=  229 fps=218 q=24.8 size=     512kB time=00:00:07.60 bitrate= 551.4kbits/s speed=7.25x    frame=  250 fps=218 q=31.0 Lsize=     705kB time=00:00:08.35 bitrate= 691.2kbits/s speed=7.28x    
+video:565kB audio:132kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.233620%
+[aac @ 0x7fb3a740c2c0] Qavg: 1898.767
+
+null
+Command failed: ffmpeg -i buffer/ts/1.ts buffer/mp4/1.mp4
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+buffer/ts/1.ts: No such file or directory
+
+Error: Command failed: rm buffer/ts/1.ts
+rm: buffer/ts/1.ts: No such file or directory
+
+Command failed: ffmpeg -i buffer/ts/1.ts buffer/mp4/1.mp4
+ffmpeg version N-106673-g058a1ff9b4 Copyright (c) 2000-2022 the FFmpeg developers
+  built with Apple clang version 11.0.3 (clang-1103.0.32.62)
+  configuration: --disable-x86asm
+  libavutil      57. 24.101 / 57. 24.101
+  libavcodec     59. 27.100 / 59. 27.100
+  libavformat    59. 23.100 / 59. 23.100
+  libavdevice    59.  6.100 / 59.  6.100
+  libavfilter     8. 36.100 /  8. 36.100
+  libswscale      6.  6.100 /  6.  6.100
+  libswresample   4.  6.100 /  4.  6.100
+buffer/ts/1.ts: No such file or directory
