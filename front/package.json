@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "childprocess": "^2.0.2",
     "fs": "^0.0.1-security"
   }

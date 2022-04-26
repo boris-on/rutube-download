@@ -11,11 +11,16 @@
         <link rel="icon" type="image/png" href="img/favicon.png">
 
         <link rel="stylesheet" href="css/style.css">
+
+        <script src="node_modules/@ffmpeg/ffmpeg/dist/ffmpeg.min.js"></script>
             
     </head>
     
     <body>
-       
+        <h3>Upload a mp4 (x264) video and trim its first 1 seconds and play!</h3>
+        <video id="output-video" controls></video><br/>
+        <input type="file" id="uploader">
+        <p id="message"></p>
     </body>
 
     <script type = "module" src="front.js"></script>

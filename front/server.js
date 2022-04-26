@@ -13,6 +13,10 @@ let server = new http.Server(function(req, res, str = '') {
 
   res.setHeader('Content-Type', 'application/json');
 
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+
   req.on('data', (data) => { rtng.req_proc(JSON.parse(data)); });
 
   req.on('end', () => { rtng.define(req, res, str); });

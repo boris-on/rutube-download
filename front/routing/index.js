@@ -26,7 +26,7 @@ const { exec } = require("child_process");
 
 
 const convert = function(name) {
-  exec(`ffmpeg -i buffer/ts/${name}.ts buffer/mp4/${name}.mp4`, (error, stdout, stderr) => {
+  exec(`ffmpeg -i ./buffer/ts/${name}.ts ./buffer/mp4/${name}.mp4`, (error, stdout, stderr) => {
     if (error) 
     {
         console.log(save_logs(error.message, './front/routing/logs/logs.txt'));
@@ -43,8 +43,8 @@ const convert = function(name) {
         return;
     }
   });
-  exec(`rm buffer/ts/${name}.ts`, (msg) => {
-    return save_logs(msg, './front/routing/logs/logs.txt');
+  exec(`rm ./buffer/ts/${name}.ts`, (msg) => {
+    return save_logs(msg, './logs/logs.txt');
   });
 };
 
@@ -59,6 +59,7 @@ const define = function(req, res, postData) {
     // Теперь получаем наш адрес. Если мы переходим на localhost:3000/test, то path будет '/test'
     const urlParsed = url.parse(req.url, true);
     let path = urlParsed.pathname;
+    
 
     // Теперь записываем полный путь к server.js. Мне это особенно нужно, так как сервер будет
     // висеть в systemd, и путь, о котором он будет думать, будет /etc/systemd/system/...
