@@ -514,3 +514,8 @@ INFO: 2022/04/24 14:13:42 main.go:128: 127.0.0.1:39666 GET /assets/wasm_exec.js 
 INFO: 2022/04/24 14:13:42 main.go:128: 127.0.0.1:39666 GET /assets/download.wasm 200
 INFO: 2022/04/24 14:13:42 main.go:128: 127.0.0.1:39664 GET /favicon.ico 200
 INFO: 2022/04/24 14:14:11 main.go:128: 127.0.0.1:39666 GET /getmp4?url=https://salam-2.rutube.ru/dive/river-1-401.rutube.ru/ZjBscLmaBxUxpbrOZuEAug/hls-vod/S-6Wbqcvs33NE0g3XAI_4g/1650820339/612/0x5000cca2c2ec3d36/e9bd50265ac04f758d731d2c6188f850.mp4.m3u8?i=640x360_1370%22 200
+INFO: 2022/04/24 23:03:47 main.go:128: [::1]:61645 GET / 200
+INFO: 2022/04/24 23:03:47 main.go:128: [::1]:61645 GET /assets/style.css 200
+INFO: 2022/04/24 23:03:47 main.go:128: [::1]:61646 GET /assets/wasm_exec.js 200
+INFO: 2022/04/24 23:03:47 main.go:128: [::1]:61645 GET /favicon.ico 200
+INFO: 2022/04/24 23:03:47 main.go:128: [::1]:61646 GET /assets/download.wasm 200
