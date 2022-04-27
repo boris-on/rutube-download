@@ -78,9 +78,13 @@ export function crtFormat(body)
     ));
     
     body.appendChild(crtElem('div', 
-        {'class' : 'video_preview',
-         'id'    : 'video_preview'},
-        {'wrds'  : ['Video pre-view']}
+        {'class'  : 'video_preview',
+         'id'     : 'video_preview'},
+        {'wrds'   : ['Video pre-view'],
+         'chldrn' : [crtElem('video',
+                  {'class' : 'output-video',
+                   'id'    : 'output-video'})
+        ]}
     ));
 
     return true;
