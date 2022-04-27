@@ -6,38 +6,40 @@
 
 //import { LOGS_FILE } from './variables.js';
 
-export function cnvrt_file(file_name)
+export async function cnvrt_file(ffmpeg, buffer, num = 1)
 {
-    const { createFFmpeg, fetchFile } = FFmpeg;
-    
-    const ffmpeg = createFFmpeg( { log: true } );
-    
-    const trim = async ({ target: { files } }) => {
-
-        const { name } = files[0]; /* name == file_name when response will be add */
-
-        await ffmpeg.load();
+    if (!ffmpeg.isLoaded()) await ffmpeg.load();
         
-        ffmpeg.FS('writeFile', name, await fetchFile(files[0]));
+    ffmpeg.FS('writeFile', `${num}.ts`, new Uint8Array(buffer));
 
-        await ffmpeg.run('-i', name, 'output.mp4');
+    await ffmpeg.run('-i', `${num}.ts`, '-codec', 'copy', `${num}.mp4`);
 
-        const data = ffmpeg.FS('readFile', 'output.mp4');
+    return `file ${num}.mp4`;
+}
 
-        // Create a new link
-        const anchor = document.createElement('a');
-        anchor.href = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
-        anchor.download = 'output.mp4';
+export async function cnct_file(ffmpeg, files = [], num = 1)
+{
+    if (!ffmpeg.isLoaded()) await ffmpeg.load();
 
-        // Append to the DOM
-        document.body.appendChild(anchor);
+    ffmpeg.FS('writeFile', 'concat_list.txt', files.join('\n'));
+    await ffmpeg.run('-f', 'concat', '-safe', '0', '-i', 'concat_list.txt', '-codec', 'copy', 'out.mp4');
 
-        // Trigger `click` event
-        anchor.click();
+    const data = ffmpeg.FS('readFile', 'out.mp4');
 
-        // Remove element from DOM
-        document.body.removeChild(anchor);
-    }
-    const elm = document.getElementById('uploader');
-    elm.addEventListener('change', trim);
+    // Create a new link
+    const anchor = document.createElement('a');
+    anchor.href = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+    anchor.download = 'out.mp4';
+
+    // Append to the DOM
+    document.body.appendChild(anchor);
+
+    // Trigger `click` event
+    anchor.click();
+
+    // Remove element from DOM
+    document.body.removeChild(anchor);
+
+    
+
 }

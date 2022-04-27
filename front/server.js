@@ -17,14 +17,14 @@ let server = new http.Server(function(req, res, str = '') {
 
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
 
-  req.on('data', (data) => { rtng.req_proc(JSON.parse(data)); });
+  req.on('data', (data) => { rtng.req_proc(data); });
 
   req.on('end', () => { rtng.define(req, res, str); });
 
 });
 
-server.listen(8000, 'localhost', () => {
+server.listen(8000, 'localhost', (srvr = server.address()) => {
 
-  console.log(`Opened on: ${server.address()}`);
+  console.log(`Opened on: ${srvr.address}:${srvr.port}`);
 
 });

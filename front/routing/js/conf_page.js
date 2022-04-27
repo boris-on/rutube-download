@@ -45,28 +45,13 @@ export function crtFirstFrame(body)
     return true;
 }
 
-export function crtFormat(body)
+export function crtFormat(body, videos)
 {
     let chldrn = [
         crtElem('div',
             {'class' : 'quality_select_1',
-             'id'    : 'quality_select_1'},
-            {'wrds'  : ['240px ~MB']}
-        ), 
-        crtElem('div',
-            {'class' : 'quality_select_2',
-             'id'    : 'quality_select_2'},
-             {'wrds'  : ['480px ~MB']}
-        ), 
-        crtElem('div',
-            {'class' : 'quality_select_3',
-             'id'    : 'quality_select_3'},
-             {'wrds'  : ['720px ~MB']}
-        ), 
-        crtElem('div',
-            {'class' : 'quality_select_4',
-             'id'    : 'quality_select_4'},
-             {'wrds'  : ['1024px ~MB']}
+             'id'    :  videos[0].URI},
+            {'wrds'  : [videos[0].Resolution]}
         )
     ];
 
