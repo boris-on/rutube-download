@@ -46,6 +46,8 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func download(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	link := r.URL.Query()["url"]
 	if len(link) == 0 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
@@ -81,6 +83,8 @@ func download(w http.ResponseWriter, r *http.Request) {
 }
 
 func getMP4(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	link := r.URL.Query()["url"]
 	if len(link) == 0 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
@@ -117,6 +121,8 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 }
 
 func getSegment(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	uuid := r.URL.Query()["uuid"]
 	segment := r.URL.Query()["segment"]
 	if len(uuid) == 0 || len(segment) == 0 {
