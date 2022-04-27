@@ -1,0 +1,283 @@
+body {
+    width: 100%;
+    height: 100%;
+
+    background: #FFFFFF;
+}
+
+.rutubeto_logo {
+    
+    position: absolute;
+    left: 31.98%;
+    right: 31.9%;
+    top: 19.32%;
+    bottom: 68.9%;
+
+    /* RUTUBETO.ru */
+    
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 87px;
+
+    color: #000000;
+}
+.search_panel {
+    /* Rectangle 1 */
+
+    position: absolute;
+    left: 7.45%;
+    right: 7.45%;
+    top: 32.74%;
+    bottom: 58.63%;
+
+    background: #C4C4C4;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
+    /* Вставьте ссылку */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 41px;
+    display: flex;
+    align-items: center;
+
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.load_btn {
+    /* Rectangle 3 */
+
+    position: absolute;
+    left: 81.72%;
+    right: 8.13%;
+    top: 33.97%;
+    bottom: 59.86%;
+
+    background: #95D2FF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+    /* Скачать */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.description_panel {
+    /* Rectangle 2 */
+
+    position: absolute;
+    left: 24%;
+    right: 26.94%;
+    top: 44.79%;
+    bottom: 43.15%;
+
+    background: #DAEFFF;
+    border: 1px solid #51CBFF;
+    box-sizing: border-box;
+
+    /* Вставьте ссылку и нажмите скачать, после можно будет выбрать качество скачиваемого изображения */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #000000;
+}
+
+.bottom_line {
+    /* Line 1 */
+
+    position: absolute;
+    left: 3.24%;
+    right: 3.16%;
+    top: 91.1%;
+    bottom: 8.9%;
+
+    border: 1px solid #000000;
+}
+
+.count_loads_panel {
+    /* Rectangle 6 */
+
+    position: absolute;
+    left: 83.97%;
+    right: 3.16%;
+    top: 92.05%;
+    bottom: 3.01%;
+
+    background: rgba(228, 228, 228, 0.35);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.format_selector {
+    /* Rectangle 2 */
+
+    position: absolute;
+    left: 12.94%;
+    right: 52.29%;
+    top: 46.99%;
+    bottom: 13.56%;
+
+    background: #DAEFFF;
+    border: 1px solid #51CBFF;
+    box-sizing: border-box;
+
+    /* Выберете нужный размер */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+
+    color: #000000;
+}
+.quality_select_1 {
+
+    /* Rectangle 4 */
+
+    position: absolute;
+    left: 26.41%;
+    right: 26.41%;
+    top: 15.62%;
+    bottom: 71.18%;
+
+    background: #D6F8FF;
+    border: 1px solid #535353;
+    box-sizing: border-box;
+    
+    /* 240px */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+
+    color: #000000;
+
+}
+.quality_select_2 {
+    /* Frame 5 */
+
+    position: absolute;
+    left: 26.41%;
+    right: 26.41%;
+    top: 36.81%;
+    bottom: 50%;
+
+    background: #D6F8FF;
+    border: 1px solid #535353;
+    box-sizing: border-box;
+
+    /* 480px */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+
+    color: #000000;
+
+}
+.quality_select_3 {
+    /* Frame 4 */
+
+    position: absolute;
+    left: 26.52%;
+    right: 26.3%;
+    top: 57.99%;
+    bottom: 28.82%;
+
+    background: #D6F8FF;
+    border: 1px solid #535353;
+    box-sizing: border-box;
+
+    /* 720px */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+
+    color: #000000;
+
+}
+.quality_select_4 {
+    /* Frame 4 */
+
+    position: absolute;
+    left: 26.62%;
+    right: 26.19%;
+    top: 79.17%;
+    bottom: 7.64%;
+
+    background: #D6F8FF;
+    border: 1px solid #535353;
+    box-sizing: border-box;
+
+    /* 1024px */
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+
+    color: #000000;
+}
+.video_preview {
+    /* Rectangle 5 */
+
+    position: absolute;
+    left: 53.27%;
+    right: 19.64%;
+    top: 49.86%;
+    bottom: 17.12%;
+
+    background: #7B7B7B;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+
+    /* Video pre-view */
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
