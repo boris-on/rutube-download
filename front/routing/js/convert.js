@@ -4,17 +4,24 @@
 
 //import { save_logs } from  './logs/logs.js';
 
-//import { LOGS_FILE } from './variables.js';
+const BUFFER_NULL_SIZE = 500;
 
 export async function cnvrt_file(ffmpeg, buffer, num = 1)
 {
     if (!ffmpeg.isLoaded()) await ffmpeg.load();
-        
-    ffmpeg.FS('writeFile', `${num}.ts`, new Uint8Array(buffer));
 
-    await ffmpeg.run('-i', `${num}.ts`, '-codec', 'copy', `${num}.mp4`);
+    let explicit_buffer = new Uint8Array(buffer);
 
-    return `file ${num}.mp4`;
+    if (explicit_buffer.byteLength > BUFFER_NULL_SIZE)
+    {
+        ffmpeg.FS('writeFile', `${num}.ts`, new Uint8Array(buffer));
+
+        await ffmpeg.run('-i', `${num}.ts`, '-codec', 'copy', `${num}.mp4`);
+
+        return `file ${num}.mp4`;
+    }
+
+    return null;
 }
 
 export async function cnct_file(ffmpeg, files = [], num = 1)
@@ -39,7 +46,4 @@ export async function cnct_file(ffmpeg, files = [], num = 1)
 
     // Remove element from DOM
     document.body.removeChild(anchor);
-
-    
-
 }

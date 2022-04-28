@@ -37,7 +37,9 @@ async function get_files(ffmpeg, jsn, files = [])
                         .then(res => res.arrayBuffer())
                             .then(buffer => {
                                 
-                                resolve(cnvrt_file(ffmpeg, buffer, id + 1).then((res) => files.push(res)));
+                                resolve(cnvrt_file(ffmpeg, buffer, id + 1).then((res) => {
+                                    if (res) files.push(res);
+                                }));
 
                 }).catch(err => console.error(err));
         });
