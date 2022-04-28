@@ -4,9 +4,19 @@
 
 //import { save_logs } from  './logs/logs.js';
 
-const BUFFER_NULL_SIZE = 500;
+const BUFFER_NULL_SIZE = 500,
+      DEFAULT_NUMBER   = 1;
 
-export async function cnvrt_file(ffmpeg, buffer, num = 1)
+export function init_ffmpeg(_log = false)
+{
+    const { createFFmpeg } = FFmpeg;
+    
+    const ffmpeg = createFFmpeg( { log: _log } );
+
+    return ffmpeg;
+}
+
+export async function ffmpeg_cnvrt(ffmpeg, buffer, num = DEFAULT_NUMBER)
 {
     if (!ffmpeg.isLoaded()) await ffmpeg.load();
 
@@ -24,7 +34,7 @@ export async function cnvrt_file(ffmpeg, buffer, num = 1)
     return null;
 }
 
-export async function cnct_file(ffmpeg, files = [], num = 1)
+export async function ffmpeg_cnct(ffmpeg, files = [])
 {
     if (!ffmpeg.isLoaded()) await ffmpeg.load();
 
@@ -33,17 +43,13 @@ export async function cnct_file(ffmpeg, files = [], num = 1)
 
     const data = ffmpeg.FS('readFile', 'out.mp4');
 
-    // Create a new link
     const anchor = document.createElement('a');
     anchor.href = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
     anchor.download = 'out.mp4';
 
-    // Append to the DOM
     document.body.appendChild(anchor);
 
-    // Trigger `click` event
     anchor.click();
 
-    // Remove element from DOM
     document.body.removeChild(anchor);
 }

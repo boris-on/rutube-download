@@ -45,15 +45,16 @@ export function crtFirstFrame(body)
     return true;
 }
 
-export function crtFormat(body, videos)
+export function crtFormat(body, videos, chldrn = [])
 {
-    let chldrn = [
-        crtElem('div',
-            {'class' : 'quality_select_1',
-             'id'    :  videos[0].URI},
-            {'wrds'  : [videos[0].Resolution]}
-        )
-    ];
+    for (let id = 0; id < videos.length; id++ )
+    {
+        chldrn.push(crtElem('div',
+            {'class' : `quality_select_${id}`,
+             'id'    :  videos[id].URI},
+            {'wrds'  : [videos[id].Resolution]}
+        ));
+    }
 
     body.appendChild(crtElem('div',
         {'class'  : 'format_selector',
