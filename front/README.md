@@ -1,12 +1,11 @@
 # Front RUTUBETO.ry
 
-## Setup
-    1. https://ffmpeg.org to download package
-    2. check ./ffmpeg/INSTALL.md
+## ffmpeg setup
+    npm install @ffmpeg/ffmpeg @ffmpeg/core
 
 ## Files
 
- <pre> server.js                 -> runs localhost              </pre>
+ <pre> server.js                 -> runs host                   </pre>
  <pre> routing/index.js          -> all requests processing     </pre>
  <pre> routing/static/index.html -> main html file              </pre>
  <pre> routing/front.js          -> processing front            </pre>
