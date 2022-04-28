@@ -1,11 +1,14 @@
-/**
- * Converting .ts into .mp4
- */
-
-//import { save_logs } from  './logs/logs.js';
+/**=================================================================*\
+***                       VIDEO CONVERTING                          **
+***-----------------------------------------------------------------**
+*** @note .ts into .mp4                                             **
+\**=================================================================*/
 
 const BUFFER_NULL_SIZE = 500,
       DEFAULT_NUMBER   = 1;
+
+/**=================================================================*/
+
 
 export function init_ffmpeg(_log = false)
 {
@@ -39,6 +42,7 @@ export async function ffmpeg_cnct(ffmpeg, files = [])
     if (!ffmpeg.isLoaded()) await ffmpeg.load();
 
     ffmpeg.FS('writeFile', 'concat_list.txt', files.join('\n'));
+    
     await ffmpeg.run('-f', 'concat', '-safe', '0', '-i', 'concat_list.txt', '-codec', 'copy', 'out.mp4');
 
     const data = ffmpeg.FS('readFile', 'out.mp4');

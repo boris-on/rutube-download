@@ -20,7 +20,7 @@ export function crtFirstFrame(body)
     body.appendChild(crtElem('div',
         {'class' : 'rutubeto_logo', 
          'id'    : 'rutubeto_logo'},
-        {'wrds'  : ['RUTUBETO.ru']}
+        {'imgs'  : ['url(\"img/rutube.png\"']}
     ));
 
     body.appendChild(crtElem('input', 
@@ -33,7 +33,7 @@ export function crtFirstFrame(body)
     body.appendChild(crtElem('div',
             {'class' : 'load_btn', 
              'id'    : 'load_btn'},
-            {'wrds'  : ['Скачать']}    
+            {'wrds'  : ['СКАЧАТЬ']}    
     ));
     
     body.appendChild(crtElem('div',
@@ -54,13 +54,14 @@ export function crtFormat(body, videos, chldrn = [])
              'id'    :  videos[id].URI},
             {'wrds'  : [videos[id].Resolution]}
         ));
+        if (id == 3) break;
     }
 
     body.appendChild(crtElem('div',
         {'class'  : 'format_selector',
          'id'     : 'format_selector'},
         {'chldrn' : chldrn,
-         'wrds'  : ['Выберете нужный размер']}    
+         'wrds'  : ['Доступные размеры:']}    
     ));
     
     body.appendChild(crtElem('div', 

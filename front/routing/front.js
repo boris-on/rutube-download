@@ -5,49 +5,45 @@
 /**=================================================================*/
           
 import { crtFirstFrame, crtFormat,
-         crtLoadWrn } from './js/conf_page.js';
+         crtLoadWrn              } from './js/conf_page.js';
 
-import { init_ffmpeg, ffmpeg_cnvrt, 
-         ffmpeg_cnct } from './js/convert.js'; 
+import { get_files, get_json     } from './js/request.js';
 
-import { isExist } from './js/utility.js';
+import { init_ffmpeg             } from './js/convert.js'; 
 
-import { clearCont } from './js/clear.js';
+import { isExist                 } from './js/utility.js';
+
+import { clearCont               } from './js/clear.js';
 
 /**=================================================================*/
 
 
-async function get_files(ffmpeg, jsn, files = [], id = 0)
-{   
-    for (; id < jsn.segmentsNumber; id++)
+async function proc_blocks(doc, body, procFunc, prms)
+{
+    if (!await procFunc(prms.url, prms.procFunc, prms.attr))
     {
-        await new Promise((resolve, _) => {
-
-            fetch(`http://localhost:3001/getsegment?uuid=${jsn.uuid}&segment=${id + 1}`)
-                .then(res => res.arrayBuffer()).then(buffer => {
-            
-                    resolve(ffmpeg_cnvrt(ffmpeg, buffer, id + 1).then((res) => {
-                        if (res) files.push(res);
-                    }));
-
-            }).catch(err => console.error(err));
-            
-        });
+        for (let id = 0; id < prms.rmv_elems.length; id++)
+        {
+            clearCont(body, {'elem' : prms.rmv_elems[id]});
+        }
+        if (prms.init) crtFirstFrame(body);
+    }
+    else 
+    {
+        doc.getElementById('description_panel').innerHTML = "Ссылка не найдена!";
+        doc.getElementById('clicked_load_btn' ).id        = 'load_btn';
     }
 
-    ffmpeg_cnct(ffmpeg, files);
 }
 
 
-(function(body, doc) {
-    
-    const ffmpeg = init_ffmpeg(true);
+(function(body, doc, ffmpeg) {
 
     crtFirstFrame(body);
 
-    let link = doc.getElementById('search_panel');
-
     addEventListener('click', function(event) {
+        
+        let link = doc.getElementById('search_panel');
 
         if (link.value && isExist('format_selector')) switch(event.target.className.slice(0, -1))
         {
@@ -55,39 +51,48 @@ async function get_files(ffmpeg, jsn, files = [], id = 0)
 
                 clearCont(body, {'elem' : 'format_selector'});
                 clearCont(body, {'elem' : 'video_preview'  });
-
+                
                 crtLoadWrn(body);
 
-                fetch(`http://localhost:3001/getmp4?url=${event.target.id}`)
-                    .then(res => res.json())
-                        .then(out => {
+                proc_blocks(doc, body, get_json, {
 
-                            get_files(ffmpeg, out);
+                    'rmv_elems' : [
+                        'load_btn'                    ,
+                        'bottom_line'                  ,
+                        'search_panel'                  ,
+                        'rutubeto_logo'                  ,
+                        'count_loads_panel'               ,
+                        'description_panel'
+                    ],
+                    
+                    'url'       : `http://localhost:3001/getmp4?url=${event.target.id}`  ,
+                    'procFunc'  :  get_files                                              ,
+                    'attr'      :  ffmpeg                                                  ,
+                    'init'      :  true
 
-                        }).catch(err => {throw err}
-                );
+                });
 
                 break;
 
             default:
                 break;
         }
+        
         if (link.value) switch(event.target.id)
         {
             case 'load_btn':
 
-                fetch(`http://localhost:3001/download?url=${link.value}`)
-                    .then(res => res.json())
-                        .then(out => {
+                doc.getElementById('load_btn').id = 'clicked_load_btn';
+                
+                proc_blocks(doc, body, get_json, {
 
-                            clearCont(body, {'elem' : 'description_panel'});
-                            clearCont(body, {'elem' : 'load_btn'         });
+                    'rmv_elems' : ['description_panel']                              ,
+                    'url'       :  `http://localhost:3001/download?url=${link.value}`  ,
+                    'procFunc'  :   crtFormat                                            ,
+                    'attr'      :   body
 
-                            crtFormat(body, out);
-
-                        }).catch(err => {throw err}
-                );    
-
+                });
+                
                 break;
             
             default:
@@ -96,4 +101,4 @@ async function get_files(ffmpeg, jsn, files = [], id = 0)
 
     })
 
-})(document.querySelector('body'), document);
+})(document.querySelector('body'), document, init_ffmpeg(true));
