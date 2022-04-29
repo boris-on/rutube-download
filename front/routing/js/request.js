@@ -31,7 +31,7 @@ export async function get_files(ffmpeg, jsn, files = [], id = 0)
     {
         await new Promise((resolve, _) => {
 
-            fetch(`http://localhost:3001/getsegment?uuid=${jsn.uuid}&segment=${id + 1}`)
+            fetch(`http://62.113.106.15:3001/getsegment?uuid=${jsn.uuid}&segment=${id + 1}`)
                 .then(res => res.arrayBuffer()).then(buffer => {
             
                     resolve(ffmpeg_cnvrt(ffmpeg, buffer, id + 1).then((res) => {

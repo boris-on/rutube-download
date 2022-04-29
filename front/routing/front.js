@@ -65,7 +65,7 @@ async function proc_blocks(doc, body, procFunc, prms)
                         'description_panel'
                     ],
                     
-                    'url'       : `http://localhost:3001/getmp4?url=${event.target.id}`  ,
+                    'url'       : `http://62.113.106.15:3001/getmp4?url=${event.target.id}`  ,
                     'procFunc'  :  get_files                                              ,
                     'attr'      :  ffmpeg                                                  ,
                     'init'      :  true
@@ -87,7 +87,7 @@ async function proc_blocks(doc, body, procFunc, prms)
                 proc_blocks(doc, body, get_json, {
 
                     'rmv_elems' : ['description_panel']                              ,
-                    'url'       :  `http://localhost:3001/download?url=${link.value}`  ,
+                    'url'       :  `http://62.113.106.15:3001/download?url=${link.value}`  ,
                     'procFunc'  :   crtFormat                                            ,
                     'attr'      :   body
 
