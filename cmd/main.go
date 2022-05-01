@@ -199,7 +199,7 @@ func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("assets"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	mux.HandleFunc("/", mainPage)
+	// mux.HandleFunc("/", mainPage)
 	mux.HandleFunc("/download", download)
 	mux.HandleFunc("/getmp4", getMP4)
 	mux.HandleFunc("/getsegment", getSegment)
