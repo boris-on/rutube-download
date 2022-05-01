@@ -36,13 +36,26 @@ func newErrorResponse(name string, description string) string {
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
-	buf := &bytes.Buffer{}
-	err := main_tpl.Execute(buf, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		ErrorLogger.Println(r.RemoteAddr, r.Method, r.URL)
+	params := r.URL.Query()
+	for key := range params {
+		switch key {
+		case "url":
+			download(w, r)
+		case "resolution_url":
+			getMP4(w, r)
+		case "uuid":
+			getSegment(w, r)
+		default:
+			continue
+		}
 	}
-	buf.WriteTo(w)
+	// buf := &bytes.Buffer{}
+	// err := main_tpl.Execute(buf, nil)
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	ErrorLogger.Println(r.RemoteAddr, r.Method, r.URL)
+	// }
+	// buf.WriteTo(w)
 }
 
 func download(w http.ResponseWriter, r *http.Request) {
@@ -89,7 +102,7 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
-	link := r.URL.Query()["url"]
+	link := r.URL.Query()["resolution_url"]
 	if len(link) == 0 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
@@ -199,7 +212,7 @@ func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("assets"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	// mux.HandleFunc("/", mainPage)
+	mux.HandleFunc("/", mainPage)
 	mux.HandleFunc("/download", download)
 	mux.HandleFunc("/getmp4", getMP4)
 	mux.HandleFunc("/getsegment", getSegment)

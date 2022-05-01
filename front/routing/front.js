@@ -65,7 +65,7 @@ async function proc_blocks(doc, body, procFunc, prms)
                         'description_panel'
                     ],
                     
-                    'url'       : `https://rutubeto.ru/getmp4?url=${event.target.id}`  ,
+                    'url'       : `https://rutubeto.ru/getmp4?resolution_url=${event.target.id}`  ,
                     'procFunc'  :  get_files                                              ,
                     'attr'      :  ffmpeg                                                  ,
                     'init'      :  true

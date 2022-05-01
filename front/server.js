@@ -23,7 +23,7 @@ let server = new http.Server(function(req, res, str = '') {
 
 });
 
-server.listen(80, '0.0.0.0', (srvr = server.address()) => {
+server.listen(8000, '0.0.0.0', (srvr = server.address()) => {
 
   console.log(`Opened on: ${srvr.address}:${srvr.port}`);
 
