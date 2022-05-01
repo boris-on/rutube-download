@@ -46,6 +46,7 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func download(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cross-Origin-Resource-Policy", "cross-origin")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
@@ -84,6 +85,7 @@ func download(w http.ResponseWriter, r *http.Request) {
 }
 
 func getMP4(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cross-Origin-Resource-Policy", "cross-origin")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
@@ -123,6 +125,7 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 }
 
 func getSegment(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Cross-Origin-Resource-Policy", "cross-origin")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
