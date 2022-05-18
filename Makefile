@@ -1,6 +1,9 @@
 front-run:
 	node front/server.js
 
+front-debug:
+	node front/server.js 8888 localhost
+
 checkpoint:
 	git add .
 	git commit -m "save changes"
