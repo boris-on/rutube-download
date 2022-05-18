@@ -16,8 +16,9 @@ import { isExist                 } from './js/utility.js';
 import { clearCont               } from './js/clear.js';
 
 /**=================================================================*/
+// https://rutube.ru/video/2317e1d4d3d6ac748a3ffa9edb8742a1/
 
-
+/**=================================================================*/
 async function proc_blocks(doc, body, procFunc, prms)
 {
     if (!await procFunc(prms.url, prms.procFunc, prms.attr))
@@ -35,8 +36,10 @@ async function proc_blocks(doc, body, procFunc, prms)
     }
 
 }
+/**=================================================================*/
 
 
+/**=================================================================*/
 (function(body, doc, ffmpeg) {
 
     crtFirstFrame(body);
@@ -45,9 +48,9 @@ async function proc_blocks(doc, body, procFunc, prms)
         
         let link = doc.getElementById('search_panel');
 
-        if (link.value && isExist('format_selector')) switch(event.target.className.slice(0, -1))
+        if (link.value && isExist('format_selector')) switch(event.target.className)
         {
-            case 'quality_select_':
+            case 'quality_select':
 
                 clearCont(body, {'elem' : 'format_selector'});
                 clearCont(body, {'elem' : 'video_preview'  });
@@ -57,17 +60,18 @@ async function proc_blocks(doc, body, procFunc, prms)
                 proc_blocks(doc, body, get_json, {
 
                     'rmv_elems' : [
-                        'load_btn'                    ,
-                        'bottom_line'                  ,
-                        'search_panel'                  ,
-                        'rutubeto_logo'                  ,
-                        'count_loads_panel'               ,
+                        'loader'            ,
+                        'load_btn'           ,
+                        'bottom_line'         ,
+                        'search_panel'         ,
+                        'rutubeto_logo'         ,
+                        'count_loads_panel'      ,
                         'description_panel'
                     ],
                     
                     'url'       : `https://rutubeto.ru/getmp4?resolution_url=${event.target.id}`  ,
-                    'procFunc'  :  get_files                                              ,
-                    'attr'      :  ffmpeg                                                  ,
+                    'procFunc'  :  get_files                                                       ,
+                    'attr'      :  ffmpeg                                                           ,
                     'init'      :  true
 
                 });
@@ -102,3 +106,5 @@ async function proc_blocks(doc, body, procFunc, prms)
     })
 
 })(document.querySelector('body'), document, init_ffmpeg(true));
+/**=================================================================*/
+ 
