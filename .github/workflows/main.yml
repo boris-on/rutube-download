@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd rutube
+            cd rutube-download
             
             docker-compose down
             docker container prune
