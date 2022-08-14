@@ -2,7 +2,7 @@ FROM node:latest
 
 WORKDIR /app
 
-EXPOSE 8000
+EXPOSE 80
 
 COPY routing/package*.json ./routing/
 
