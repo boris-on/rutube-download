@@ -175,6 +175,10 @@ func init() {
 
 }
 
+func mainPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.URL.Query())
+}
+
 func main() {
 	mux := http.NewServeMux()
 	fs := http.FileServer(http.Dir("assets"))
@@ -182,6 +186,7 @@ func main() {
 	mux.HandleFunc("/download", download)
 	mux.HandleFunc("/getmp4", getMP4)
 	mux.HandleFunc("/getsegment", getSegment)
+	mux.HandleFunc("/", mainPage)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3001"
