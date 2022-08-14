@@ -21,6 +21,7 @@ jobs:
             
             docker-compose down
             docker container prune
+            y
             
             git pull
             
