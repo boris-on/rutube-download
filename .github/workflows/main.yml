@@ -12,12 +12,11 @@ jobs:
     
     steps:
       - name: Connect to host via SSH and update containers
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.SSHKEY }}
-          port: ${{ secrets.PORT }}
-          script: |
+          command: |
             cd rutube-download
             
             docker-compose down
