@@ -175,8 +175,14 @@ func init() {
 
 }
 
-func mainPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.URL.Query())
+func redirectHandler(w http.ResponseWriter, r *http.Request) {
+	query := r.URL
+	fmt.Println(query)
+	fmt.Println(query.Path)
+	fmt.Println(query.Fragment)
+	fmt.Println(query.Scheme)
+	fmt.Println(query.RequestURI())
+	fmt.Println(query.Query())
 }
 
 func main() {
@@ -186,7 +192,9 @@ func main() {
 	mux.HandleFunc("/download", download)
 	mux.HandleFunc("/getmp4", getMP4)
 	mux.HandleFunc("/getsegment", getSegment)
-	mux.HandleFunc("/", mainPage)
+
+	mux.HandleFunc("/", redirectHandler)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3001"
