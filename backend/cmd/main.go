@@ -72,7 +72,7 @@ func download(w http.ResponseWriter, r *http.Request) {
 func getMP4(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	link := r.URL.Query()["url"]
+	link := r.URL.Query()["link"]
 	if len(link) == 0 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
@@ -100,11 +100,6 @@ func getMP4(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	fmt.Fprintln(w, segmentsInfo)
-	// w.WriteHeader(http.StatusOK)
-	// w.Header().Set("Content-Type", "video/ts")
-
-	// io.Copy(w, bytes.NewReader(videoFileBytes))
-	return
 }
 
 func getSegment(w http.ResponseWriter, r *http.Request) {
@@ -176,13 +171,21 @@ func init() {
 }
 
 func redirectHandler(w http.ResponseWriter, r *http.Request) {
-	query := r.URL
-	fmt.Println(query)
-	fmt.Println(query.Path)
-	fmt.Println(query.Fragment)
-	fmt.Println(query.Scheme)
-	fmt.Println(query.RequestURI())
-	fmt.Println(query.Query())
+	query := r.URL.Query()
+
+	for key := range query {
+		switch key {
+		case "url":
+			download(w, r)
+			return
+		case "link":
+			getMP4(w, r)
+			return
+		case "uuid":
+			getSegment(w, r)
+			return
+		}
+	}
 }
 
 func main() {
