@@ -20,8 +20,7 @@ jobs:
             cd rutube-download
             
             docker-compose down
-            docker container prune
-            y
+            docker container prune -f
             
             git pull
             
