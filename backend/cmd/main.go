@@ -72,7 +72,7 @@ func download(w http.ResponseWriter, r *http.Request) {
 func getMP4(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	link := r.URL.Query()["link"]
+	link := r.URL.Query()["resolution_url"]
 	if len(link) == 0 {
 		fmt.Fprintln(w, newErrorResponse("url_error", "Введите ссылку на видео"))
 		WarningLogger.Println(r.RemoteAddr, r.Method, r.URL)
@@ -178,7 +178,7 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 		case "url":
 			download(w, r)
 			return
-		case "link":
+		case "resolution_url":
 			getMP4(w, r)
 			return
 		case "uuid":
