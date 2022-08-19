@@ -39,7 +39,7 @@ export function crtFirstFrame(body)
     body.appendChild(crtElem('div',
         {'class'  : 'description_panel', 
          'id'     : 'description_panel'},
-        {'wrds'   : ['Вставьте ссылку и нажмите скачать, после чего наверное можно будет выбрать качество видео']}
+        {'wrds'   : ['Вставьте ссылку и нажмите скачать, после чего можно будет выбрать качество видео']}
     ));
 
     return true;
