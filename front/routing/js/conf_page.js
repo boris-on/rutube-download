@@ -35,11 +35,11 @@ export function crtFirstFrame(body)
              'id'    : 'load_btn'},
             {'wrds'  : ['СКАЧАТЬ']}    
     ));
-    
+
     body.appendChild(crtElem('div',
         {'class'  : 'description_panel', 
          'id'     : 'description_panel'},
-        {'wrds'   : ['Вставьте ссылку и нажмите скачать, после чего можно будет выбрать качество видео']}
+        {'wrds'   : ['Вставьте ссылку и нажмите скачать, после можно будет выбрать качество скачиваемого изображения']}
     ));
 
     return true;
@@ -50,11 +50,26 @@ export function crtFormat(body, videos, chldrn = [])
     for (let id = 0; id < videos.length; id++ )
     {
         chldrn.push(crtElem('div',
-            {'class' : `quality_select_${id}`,
-             'id'    :  videos[id].URI},
-            {'wrds'  : [videos[id].Resolution]}
+            {'class'  : 'quality_select',
+             'id'     :  videos[id].URI,
+             'style'  : `top    : ${15.62 + id * 16}%; ` +
+                        `bottom : ${71.18 - id * 16}%;`},
+            {'wrds'   : [videos[id].Resolution]}
         ));
-        if (id == 3) break;
+        /*
+left: 26.41%;
+    right: 26.41%;
+    top: 36.81%;
+    bottom: 50%;
+    left: 26.52%;
+    right: 26.3%;
+    top: 57.99%;
+    bottom: 28.82%;
+    left: 26.62%;
+    right: 26.19%;
+    top: 79.17%;
+    bottom: 7.64%;
+        */
     }
 
     body.appendChild(crtElem('div',
@@ -83,5 +98,10 @@ export function crtLoadWrn(body)
         {'class'  : 'description_panel', 
          'id'     : 'description_panel'},
         {'wrds'   : ['Скачивание...']}
+    ));
+
+    body.appendChild(crtElem('div',
+            {'class' : 'loader', 
+             'id'    : 'loader'}
     ));
 }
