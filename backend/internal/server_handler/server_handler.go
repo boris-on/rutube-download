@@ -253,7 +253,6 @@ func VideoListProxyRequest(link string) (string, error) {
 }
 
 func VideoSegmentsProxyRequest(link string) ([]string, error) {
-	// url := "proxyserver" + "?url=" + link
 	url := link
 	resp, err := http.Get(url)
 	if err != nil {
