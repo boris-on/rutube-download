@@ -13,7 +13,7 @@ const http = require(   'http'  ),
 let argv = process.argv;
 
 let port = (argv[2]) ? argv[2] : 80,
-    host = (argv[3]) ? argv[3] : 'localhost';
+    host = (argv[3]) ? argv[3] : '0.0.0.0';
 /**===========================================================*/
 
 
