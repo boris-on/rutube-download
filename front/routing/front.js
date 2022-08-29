@@ -17,7 +17,6 @@ import { clearCont               } from './js/clear.js';
 
 /**=================================================================*/
 // https://rutube.ru/video/2317e1d4d3d6ac748a3ffa9edb8742a1/
-
 /**=================================================================*/
 async function proc_blocks(doc, body, procFunc, prms)
 {
@@ -65,7 +64,7 @@ async function proc_blocks(doc, body, procFunc, prms)
                         'bottom_line'         ,
                         'search_panel'         ,
                         'rutubeto_logo'         ,
-                        'count_loads_panel'      ,
+                        //'count_loads_panel'      ,
                         'description_panel'
                     ],
                     

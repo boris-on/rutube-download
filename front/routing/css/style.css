@@ -55,9 +55,8 @@ body {
     top: 32.74%;
 
     background: #ffffff33;
-    border: 1px solid #ffffff;
-    border-bottom: 1px solid #abb4b7a0;
-    border-top: 1px solid #abb4b7a0;
+    border: 1px solid #abb4b7a0;
+    border-radius: 5px;
     box-sizing: border-box;
     
     /* Вставьте ссылку */
@@ -113,7 +112,7 @@ body {
     top: 45%;
 
     background: #ffffff87;
-    border-bottom: 1px solid #abb4b7a0;
+    /*border-bottom: 1px solid #abb4b7a0; */
     box-sizing: border-box;
 
     /* Вставьте ссылку и нажмите скачать, после можно будет выбрать качество скачиваемого изображения */
@@ -133,10 +132,10 @@ body {
     position: absolute;
     left: 3.24%;
     right: 3.16%;
-    top: 91.1%;
-    bottom: 8.9%;
+    top: 93%;
+    bottom: 7%;
 
-    border: 1px solid #000000;
+    border: 1px solid #00000034;
 }
 
 .count_loads_panel {

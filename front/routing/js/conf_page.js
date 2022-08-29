@@ -11,11 +11,11 @@ export function crtFirstFrame(body)
          'id'    : 'bottom_line'}
     ));
 
-    body.appendChild(crtElem('div',
+    /*body.appendChild(crtElem('div',
         {'class' : 'count_loads_panel', 
          'id'    : 'count_loads_panel'},
         {'wrds'  : ['Downloads : 10000']}
-    ));
+    ));*/
 
     body.appendChild(crtElem('div',
         {'class' : 'rutubeto_logo', 
@@ -39,7 +39,7 @@ export function crtFirstFrame(body)
     body.appendChild(crtElem('div',
         {'class'  : 'description_panel', 
          'id'     : 'description_panel'},
-        {'wrds'   : ['Вставьте ссылку и нажмите скачать, после можно будет выбрать качество скачиваемого видео']}
+        {'wrds'   : ['']}
     ));
 
     return true;
@@ -57,7 +57,7 @@ export function crtFormat(body, videos, chldrn = [])
             {'wrds'   : [videos[id].Resolution]}
         ));
         /*
-left: 26.41%;
+    left: 26.41%;
     right: 26.41%;
     top: 36.81%;
     bottom: 50%;
