@@ -61,7 +61,7 @@ async function proc_blocks(doc, body, procFunc, prms)
                     'rmv_elems' : [
                         'loader'            ,
                         'load_btn'           ,
-                        'bottom_line'         ,
+                        //'bottom_line'         ,
                         'search_panel'         ,
                         'rutubeto_logo'         ,
                         //'count_loads_panel'      ,

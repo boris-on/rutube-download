@@ -6,10 +6,10 @@ import { crtElem } from "./utility.js";
 
 export function crtFirstFrame(body)
 {
-    body.appendChild(crtElem('div',
+    /*body.appendChild(crtElem('div',
         {'class' : 'bottom_line', 
          'id'    : 'bottom_line'}
-    ));
+    ));*/
 
     /*body.appendChild(crtElem('div',
         {'class' : 'count_loads_panel', 
