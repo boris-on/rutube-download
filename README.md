@@ -1,4 +1,2 @@
-# Rutubeto.ru downloader
-
-### Visit our website
-### https://rutubeto.ru
+## Rutubeto.ru downloader
+- Visit our website https://rutubeto.ru
