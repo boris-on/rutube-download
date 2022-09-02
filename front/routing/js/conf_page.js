@@ -27,7 +27,7 @@ export function crtFirstFrame(body)
         {'class'       : 'search_panel',
          'id'          : 'search_panel',
          'name'        : 'link',
-         'placeholder' : 'Вставьте ссылку'}
+         'placeholder' : 'Вставьте ссылку на видео'}
     ));
 
     body.appendChild(crtElem('div',
