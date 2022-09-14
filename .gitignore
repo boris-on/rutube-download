@@ -1,2 +1,3 @@
 # exclude macOS dir files
 *.DS_Store
+node_modules
