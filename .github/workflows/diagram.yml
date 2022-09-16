@@ -13,3 +13,5 @@ jobs:
         uses: actions/checkout@master
       - name: Update diagram
         uses: githubocto/repo-visualizer@main
+        with:
+          excluded_paths: "media"
