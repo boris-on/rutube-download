@@ -4,4 +4,4 @@
 
 ![](https://github.com/boris-on/rutube-download/blob/main/images/Screenshot_2.png)
 
-![Visualization of this repo](./diagram.svg)
+![Visualization of this repo](./diagram.svg?)
