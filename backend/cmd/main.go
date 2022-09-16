@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -158,9 +159,21 @@ func logRequestHandler(h http.Handler) http.Handler {
 }
 
 func init() {
-	file, err := os.OpenFile("../logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
+
+	var file *os.File
+	var fileErr error = nil
+
+	if _, err := os.Stat("../logs.txt"); err == nil {
+		file, fileErr = os.OpenFile("../logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	} else if errors.Is(err, os.ErrNotExist) {
+		file, fileErr = os.Create("../logs.txt")
+	} else {
 		ErrorLogger.Println("logs.txt not found")
+		return
+	}
+
+	if fileErr != nil {
+		ErrorLogger.Println("failed to create logs.txt")
 		return
 	}
 
