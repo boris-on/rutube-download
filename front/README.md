@@ -1,8 +1,6 @@
 # Front Rutubeto.ru
 
-## ffmpeg setup
-    npm install @ffmpeg/ffmpeg @ffmpeg/core
-
-## Run
-
- <pre>node front/server.js</pre>
+ffmpeg setup:
+<pre> npm install @ffmpeg/ffmpeg @ffmpeg/core</pre>
+Run:
+<pre>node front/server.js</pre>
