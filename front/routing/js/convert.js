@@ -1,15 +1,16 @@
-/**=================================================================*\
-***                       VIDEO CONVERTING                          **
-***-----------------------------------------------------------------**
-*** @note .ts into .mp4                                             **
-\**=================================================================*/
+/**====================================================================*\
+ * convert.js                                          (c) Mtvy, 2022
+ * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
+ * @note .ts into .mp4                                                 
+\**====================================================================*/
 
+/**--------------------------------------------------------------------*/
 const BUFFER_NULL_SIZE = 500,
       DEFAULT_NUMBER   = 1;
+/**--------------------------------------------------------------------*/
 
-/**=================================================================*/
 
-
+/**--------------------------------------------------------------------*/
 export function init_ffmpeg(_log = false)
 {
     const { createFFmpeg } = FFmpeg;
@@ -18,7 +19,10 @@ export function init_ffmpeg(_log = false)
 
     return ffmpeg;
 }
+/**--------------------------------------------------------------------*/
 
+
+/**--------------------------------------------------------------------*/
 export async function ffmpeg_cnvrt(ffmpeg, buffer, num = DEFAULT_NUMBER)
 {
     if (!ffmpeg.isLoaded()) await ffmpeg.load();
@@ -36,10 +40,13 @@ export async function ffmpeg_cnvrt(ffmpeg, buffer, num = DEFAULT_NUMBER)
 
     return null;
 }
+/**--------------------------------------------------------------------*/
 
+
+/**--------------------------------------------------------------------*/
 export async function ffmpeg_cnct(ffmpeg, files = [])
 {
-    if (!ffmpeg.isLoaded()) await ffmpeg.load();
+    if (!ffmpeg.isLoaded()) { await ffmpeg.load(); }
 
     ffmpeg.FS('writeFile', 'concat_list.txt', files.join('\n'));
     
@@ -49,11 +56,14 @@ export async function ffmpeg_cnct(ffmpeg, files = [])
 
     const anchor = document.createElement('a');
     anchor.href = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
-    anchor.download = 'out.mp4';
+    anchor.download = 'Rutubeto_downloads.mp4';
 
     document.body.appendChild(anchor);
 
     anchor.click();
 
     document.body.removeChild(anchor);
+    
+    return await new Promise((resolve) => { resolve(true); });
 }
+/**--------------------------------------------------------------------*/
