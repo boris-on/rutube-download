@@ -36,7 +36,7 @@ const define = function(req, res) {
     function open_utils(_path, _res, _root_path) {
         if(/\./.test(_path))
         {
-            if(/\.css$/gi.test(_path)) { 
+            if(/\.css$/gi.test(_path)) {
                 set_file(_res, 200, 'text/css'); 
             }
             else if(/\.js$/gi.test(_path)) { 
