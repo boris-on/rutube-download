@@ -39,7 +39,7 @@ export async function ffmpeg_cnvrt(ffmpeg, buffer, num = DEFAULT_NUMBER)
 
 export async function ffmpeg_cnct(ffmpeg, files = [])
 {
-    if (!ffmpeg.isLoaded()) await ffmpeg.load();
+    if (!ffmpeg.isLoaded()) { await ffmpeg.load(); }
 
     ffmpeg.FS('writeFile', 'concat_list.txt', files.join('\n'));
     
@@ -49,11 +49,13 @@ export async function ffmpeg_cnct(ffmpeg, files = [])
 
     const anchor = document.createElement('a');
     anchor.href = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
-    anchor.download = 'out.mp4';
+    anchor.download = 'Rutubeto_downloads.mp4';
 
     document.body.appendChild(anchor);
 
     anchor.click();
 
     document.body.removeChild(anchor);
+    
+    return await new Promise((resolve) => { resolve(true); });
 }

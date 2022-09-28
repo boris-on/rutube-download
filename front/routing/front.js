@@ -1,26 +1,27 @@
-/**=================================================================*\
-***                         FRONT PROCESSING                        **
-\**=================================================================*/
-
-/**=================================================================*/
+/**====================================================================*\
+ * front.js                                            (c) Mtvy, 2022
+ * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
+\**====================================================================*/
           
 import { crtFirstFrame, crtFormat,
          crtLoadWrn              } from './js/conf_page.js';
 
-import { get_files, get_json     } from './js/request.js';
+import { get_files, get_json } from './js/request.js';
 
-import { init_ffmpeg             } from './js/convert.js'; 
+import { init_ffmpeg } from './js/convert.js'; 
 
-import { isExist                 } from './js/utility.js';
+import { isExist } from './js/utility.js';
 
-import { clearCont               } from './js/clear.js';
+import { clearCont } from './js/clear.js';
 
 /**=================================================================*/
 // https://rutube.ru/video/2317e1d4d3d6ac748a3ffa9edb8742a1/
 /**=================================================================*/
 async function proc_blocks(doc, body, procFunc, prms)
 {
-    if (!await procFunc(prms.url, prms.procFunc, prms.attr))
+    let status = await new Promise((resolve) => { resolve(procFunc(prms.url, prms.procFunc, prms.attr)); })
+    console.log(status);
+    if (status)
     {
         for (let id = 0; id < prms.rmv_elems.length; id++)
         {
@@ -30,10 +31,10 @@ async function proc_blocks(doc, body, procFunc, prms)
     }
     else 
     {
-        doc.getElementById('description_panel').innerHTML = "Ссылка не найдена!";
+        doc.getElementById('description_panel').innerHTML = "Видео по ссылке не найдено. Пример ссылки: https://rutube.ru/video/";
         doc.getElementById('clicked_load_btn' ).id        = 'load_btn';
+        
     }
-
 }
 /**=================================================================*/
 
@@ -59,12 +60,11 @@ async function proc_blocks(doc, body, procFunc, prms)
                 proc_blocks(doc, body, get_json, {
 
                     'rmv_elems' : [
-                        'loader'            ,
-                        'load_btn'           ,
-                        //'bottom_line'         ,
-                        'search_panel'         ,
-                        'rutubeto_logo'         ,
-                        //'count_loads_panel'      ,
+                        'loader',
+                        'load_btn',
+                        'search_area',
+                        'search_panel',
+                        'rutubeto_logo',
                         'description_panel'
                     ],
                     

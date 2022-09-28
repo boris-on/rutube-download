@@ -15,8 +15,14 @@ export async function get_json(url, procFunc, attr)
 
         fetch(url).then(res => res.json()).then(out => {
 
-            if (!out.error) procFunc(attr, out);
-            resolve(out.error);
+            if (!out.error) 
+            { 
+                resolve(procFunc(attr, out)); 
+            }
+            else
+            {
+                resolve(!out.error);
+            }
 
         }).catch(err => {throw err});
     });
@@ -43,6 +49,6 @@ export async function get_files(ffmpeg, jsn, files = [], id = 0)
         });
     }
 
-    ffmpeg_cnct(ffmpeg, files);
+    return await new Promise((resolve) => { resolve(ffmpeg_cnct(ffmpeg, files)); });
 }
 

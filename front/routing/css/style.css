@@ -1,49 +1,21 @@
 body {
     width: 100%;
     height: 100%;
-
     background: #FFFFFF;
 }
 
-.loader {
-    border: 0.6vw solid #e2e2e2; /* Light grey */
-    border-top: 0.6vw solid #606060; /* Blue */
-    border-radius: 50%;
-    width: 1.9vw;
-    height: 1.9vw;
-    animation: spin 0.6s linear infinite;
-    position: fixed;
-    bottom: 48%;
-    left: 50%
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 .rutubeto_logo {
-    
-    position: absolute;
-    width: 40vw;
-    height: 8vw;
-
-    top: 16%;
-    left: 50%;
-    margin-left: -20vw;
-
-    background-size: contain;
-    background-repeat: no-repeat;
-
-    /* RUTUBETO.ru */
-    
+    margin: 4vw auto auto auto;
+    color: black;
+    text-align: center;
+    font-size: 9vw;
+    font-weight: 800;
     font-family: 'Chakra Petch', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 4.2vw;
-    line-height: 87px;
-
-    color: #000000;
+}
+.search_area {
+    height: 6vw; 
+    margin-bottom: 2vw;   
 }
 .search_panel {
     /* Rectangle 1 */
@@ -52,11 +24,10 @@ body {
     width: 85%;
     height: 6vw;
     left: 7.45%;
-    top: 32.74%;
 
     background: #ffffff33;
-    border: 1px solid #abb4b7a0;
-    border-radius: 5px;
+    border: 2px solid #abb4b7a0;
+    border-radius: 2.6vw;
     box-sizing: border-box;
     
     /* Вставьте ссылку */
@@ -64,7 +35,7 @@ body {
     font-family: 'Chakra Petch', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 2vw;
+    font-size: 1.8vw;
     line-height: 41px;
     display: flex;
     align-items: center;
@@ -80,9 +51,7 @@ body {
     width: 8%;
     height: 6vw;
     left: 85%;
-    top: 33%;
 
-    background: #ffffff75;
     box-sizing: border-box;
 
     cursor: pointer;
@@ -91,10 +60,10 @@ body {
 
     font-family: 'Chakra Petch', sans-serif;
     font-style: normal;
-    font-weight: 550;
+    font-weight: 700;
     font-size: 1.4vw;
     display: flex;
-    align-items:center;
+    align-items: center;
 
     color: #69696981;
 }
@@ -105,11 +74,7 @@ body {
 .description_panel {
     /* Rectangle 2 */
 
-    position: absolute;
-    width: 50%;
-    height: 7vw;
-    left: 24%;
-    top: 45%;
+    margin: 0.5vw auto auto auto;
 
     background: #ffffff87;
     /*border-bottom: 1px solid #abb4b7a0; */
@@ -119,55 +84,21 @@ body {
 
     font-family: 'Chakra Petch', sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 1.5vw;
     line-height: 2.5vw;
+    text-align: center;
 
     color: #000000;
 }
 
-.bottom_line {
-    /* Line 1 */
-
-    position: absolute;
-    left: 3.24%;
-    right: 3.16%;
-    top: 93%;
-    bottom: 7%;
-
-    border: 1px solid #00000034;
-}
-
-.count_loads_panel {
-    /* Rectangle 6 */
-
-    position: absolute;
-    width: 10%;
-    height: 35px;
-    left: 86%;
-    bottom: 2.5%;
-
-    box-sizing: border-box;
-
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1vw;
-    line-height: 19px;
-    display: flex;
-    align-items: center;
-
-    color: #000000;
-}
 
 .format_selector {
     /* Rectangle 2 */
 
-    position: absolute;
-    left: 12.94%;
-    right: 52.29%;
-    top: 46.99%;
-    bottom: 13.56%;
+    width: 30%;
+
+    margin: 2vw auto auto auto;
 
     background: #ffffff;
     box-sizing: border-box;
@@ -176,9 +107,9 @@ body {
 
     font-family: 'Chakra Petch', sans-serif;
     font-style: normal;
-    font-weight: 500;
-    font-size: 1.2vw;
-    line-height: 19px;
+    font-weight: 700;
+    font-size: 1.2vmax;
+    line-height: 20px;
     text-align: center;
 
     color: #686868;
@@ -187,14 +118,11 @@ body {
 
     /* Rectangle 4 */
 
-    position: absolute;
+    margin: 0.6vw;
 
-    left: 26%;
-    right: 20%;
-
-    background: #ffffff;
-    background-image: linear-gradient(90deg, rgba(171, 171, 171, 0),  rgba(171, 171, 171, 0.05), #ababab0f, #ababab07);
-    border-bottom: 1px solid #cfcfcf;
+    background: rgb(0, 0, 0);
+    border: 5px solid #000000;
+    border-radius: 2.6vw;
     box-sizing: border-box;
     
     /* 240px */
@@ -202,10 +130,9 @@ body {
     font-family: 'Chakra Petch', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 1.5vw;
+    font-size: 2vmax;
     line-height: 34px;
-    display: flex;
-    align-items: center;
+    text-align: center;
 
     color: #8a8a8a;
 
@@ -214,26 +141,18 @@ body {
     color: #363636;
     background-image: linear-gradient(90deg, rgba(171, 171, 171, 0.073),rgba(171, 171, 171, 0.14), #ababab0f, #ababab2e);
 }
-.video_preview {
-    /* Rectangle 5 */
 
-    position: absolute;
-    left: 53.27%;
-    right: 19.64%;
-    top: 49.86%;
-    bottom: 22%;
+.loader {
+    margin: auto auto auto auto;
+    border: 0.6vw solid #e2e2e2; /* Light grey */
+    border-top: 0.6vw solid #606060; /* Blue */
+    border-radius: 50%;
+    width: 1.9vw;
+    height: 1.9vw;
+    animation: spin 0.6s linear infinite;
+}
 
-    background: #7B7B7B;
-    border: 1px solid #000000;
-    box-sizing: border-box;
-
-    /* Video pre-view */
-    
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 39px;
-
-    color: #FFFFFF;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
