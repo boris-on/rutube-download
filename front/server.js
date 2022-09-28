@@ -1,7 +1,7 @@
 /**====================================================================*\
  * server.js                                           (c) Mtvy, 2022
  * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
- * @note use > node ../server.js to run server              
+ * @note use > node ./server.js to run server              
 \**====================================================================*/
         
 /**--------------------------------------------------------------------*/
