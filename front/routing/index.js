@@ -2,99 +2,98 @@
  *  Server processing
  */
 
-const fs = require('fs');
-
+const fs  = require('fs');
 const url = require('url');
 
 
-const req_proc = function(data)
-{
-    console.log(data);
-}
+const req_proc = function(data) { console.log(data); }
 
 
-const define = function(req, res, postData) {
+const define = function(req, res, post_data) {
+
+    function set_file(_res, code, cont_type=null) {
+        if (cont_type) {
+            _res.writeHead(code, {'Content-Type' : cont_type});
+        }
+        else {
+            _res.writeHead(code);
+        }
+    }
+
+
+    function close_file(_res, code, ending, cont_type=null) {
+        set_file(_res, code, cont_type); res.end(ending);
+    }
+
+
+    function open_utils(_path, _res, root_path) {
+        if(/\./.test(_path)) 
+        {
+            if(/\.css$/gi.test(_path)) { 
+                set_file(_res, 200, 'text/css'); 
+            }
+            else if(/\.js$/gi.test(_path)) { 
+                set_file(_res, 200, 'application/javascript'); 
+            }
+            
+            fs.createReadStream(`${root_path}${_path}`).pipe(_res);
+            return;   
+        }
+    }
+
+
+    function open_site(api_path, _path, _res, _post_data, _req, _root_path) {
+        try {
+            // Api
+            api_path.promise(_res, _post_data, _req).then(
+                result => { 
+                    close_file(_res, 200, result); 
+                    return; 
+                },
+                error => {
+                    _res.end(JSON.stringify({'error' : 1, 'errorName' : error}));
+                    return;
+                }
+            );
+            res.end('We have API!');
+        }
+        catch (err) {
+            // Index out.
+            let index_path = `${_root_path}/static${_path}/index.html`
+            fs.readFile(index_path, 'utf-8', (err, html) => {
+                if(err) {
+                    nopage_index_path = '/var/www/html/nodejs/routing/nopage/index.html'
+                    fs.readFile(nopage_index_path, (err , html) => {
+                        if(!err) {
+                            close_file(res, 404, html, 'text/html')
+                        }
+                        else {
+                            close_file(res, 404, 'Something went wrong.', 'text/plain');
+                        }
+                    });
+                }
+                else {
+                    close_file(res, 200, html, 'text/html');
+                }
+            });
+        }
+    }
+
     
     const urlParsed = url.parse(req.url, true);
-    let path = urlParsed.pathname;
+    let path = urlParsed.pathname; // req_name
     
     prePath = __dirname;
 
-    if(/\./.test(path)) 
-    {
-      if(path == '/favicon.png') 
-        {
-            let readStream = fs.createReadStream(prePath + 'img/' + path);
-            readStream.pipe(res);
-            return;
-        }
-        else
-        {
-            if(/\.mp3$/gi.test(path)) 
-            {
-                res.writeHead(200, {
-                    'Content-Type': 'audio/mpeg'
-                });
-            }
-            else if(/\.css$/gi.test(path)) 
-            {
-                res.writeHead(200, {
-                    'Content-Type': 'text/css'
-                });
-            }
-            else if(/\.js$/gi.test(path)) 
-            {
-                res.writeHead(200, {
-                    'Content-Type': 'application/javascript'
-                });
-            }
-            let readStream = fs.createReadStream(prePath+path);
-            readStream.pipe(res);
-            return;
-        }
-    }
-    try {
-      let dynPath = './dynamic/' + path;
-      let routeDestination = require(dynPath);
-      routeDestination.promise(res,postData,req).then(
-        result => {
-          res.writeHead(200);
-          res.end(result);
-          return;
-        },
-        error => {
-          let endMessage = {};
-          endMessage.error = 1;
-          endMessage.errorName = error;
-          res.end(JSON.stringify(endMessage));
-          return;
-        }
-      );
-      res.end('We have API!');
-    }
-    catch (err) {
-        let filePath = prePath+'/static'+path+'/index.html';
-        fs.readFile(filePath, 'utf-8', (err, html) => {
-            if(err) {
-                let nopath = '/var/www/html/nodejs/routing/nopage/index.html';
-                fs.readFile(nopath, (err , html) => {
-                    if(!err) {
-                        res.writeHead(404, {'Content-Type': 'text/html'});
-                        res.end(html);
-                    }
-                    else{
-                        let text = "Something went wrong.";
-                        res.writeHead(404, {'Content-Type': 'text/plain'});
-                        res.end(text);
-                    }
-                });
-            }
-            else{
-                res.writeHead(200, {'Content-Type': 'text/html'});
-                res.end(html);
-            }
-        });
-    }
+    console.log("\n--------FILEPATH-------\n", prePath, 
+                "\n--------URLPARSE-------\n", urlParsed, 
+                "\n----------PATH---------\n", path, "\n\n")
+
+    // Utiils open.
+    open_utils(path, res, prePath);
+
+    // Site open.
+    open_site(require(`./dynamic/${path}`), path, res, post_data, req)
 };
 
 
