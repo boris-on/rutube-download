@@ -2,9 +2,9 @@
  * front.js                                            (c) Mtvy, 2022
  * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
 \**====================================================================*/
-          
-import { crtFirstFrame, crtFormat,
-         crtLoadWrn              } from './js/conf_page.js';
+        
+/**--------------------------------------------------------------------*/
+import { crtFirstFrame, crtFormat, crtLoadWrn } from './js/conf_page.js';
 
 import { get_files, get_json } from './js/request.js';
 
@@ -13,10 +13,10 @@ import { init_ffmpeg } from './js/convert.js';
 import { isExist } from './js/utility.js';
 
 import { clearCont } from './js/clear.js';
+/**--------------------------------------------------------------------*/
 
-/**=================================================================*/
-// https://rutube.ru/video/2317e1d4d3d6ac748a3ffa9edb8742a1/
-/**=================================================================*/
+
+/**--------------------------------------------------------------------*/
 async function proc_blocks(doc, body, procFunc, prms)
 {
     let status = await new Promise((resolve) => { resolve(procFunc(prms.url, prms.procFunc, prms.attr)); })
@@ -25,7 +25,7 @@ async function proc_blocks(doc, body, procFunc, prms)
     {
         for (let id = 0; id < prms.rmv_elems.length; id++)
         {
-            clearCont(body, {'elem' : prms.rmv_elems[id]});
+            clearCont({'elem' : prms.rmv_elems[id]});
         }
         if (prms.init) crtFirstFrame(body);
     }
@@ -36,10 +36,10 @@ async function proc_blocks(doc, body, procFunc, prms)
         
     }
 }
-/**=================================================================*/
+/**--------------------------------------------------------------------*/
 
 
-/**=================================================================*/
+/**--------------------------------------------------------------------*/
 (function(body, doc, ffmpeg) {
 
     crtFirstFrame(body);
@@ -52,8 +52,8 @@ async function proc_blocks(doc, body, procFunc, prms)
         {
             case 'quality_select':
 
-                clearCont(body, {'elem' : 'format_selector'});
-                clearCont(body, {'elem' : 'video_preview'  });
+                clearCont({'elem' : 'format_selector'});
+                clearCont({'elem' : 'video_preview'  });
                 
                 crtLoadWrn(body);
 
@@ -105,5 +105,5 @@ async function proc_blocks(doc, body, procFunc, prms)
     })
 
 })(document.querySelector('body'), document, init_ffmpeg(true));
-/**=================================================================*/
+/**--------------------------------------------------------------------*/
  

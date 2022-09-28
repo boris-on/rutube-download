@@ -1,15 +1,16 @@
-/**=================================================================*\
-***                       VIDEO CONVERTING                          **
-***-----------------------------------------------------------------**
-*** @note .ts into .mp4                                             **
-\**=================================================================*/
+/**====================================================================*\
+ * convert.js                                          (c) Mtvy, 2022
+ * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
+ * @note .ts into .mp4                                                 
+\**====================================================================*/
 
+/**--------------------------------------------------------------------*/
 const BUFFER_NULL_SIZE = 500,
       DEFAULT_NUMBER   = 1;
+/**--------------------------------------------------------------------*/
 
-/**=================================================================*/
 
-
+/**--------------------------------------------------------------------*/
 export function init_ffmpeg(_log = false)
 {
     const { createFFmpeg } = FFmpeg;
@@ -18,7 +19,10 @@ export function init_ffmpeg(_log = false)
 
     return ffmpeg;
 }
+/**--------------------------------------------------------------------*/
 
+
+/**--------------------------------------------------------------------*/
 export async function ffmpeg_cnvrt(ffmpeg, buffer, num = DEFAULT_NUMBER)
 {
     if (!ffmpeg.isLoaded()) await ffmpeg.load();
@@ -36,7 +40,10 @@ export async function ffmpeg_cnvrt(ffmpeg, buffer, num = DEFAULT_NUMBER)
 
     return null;
 }
+/**--------------------------------------------------------------------*/
 
+
+/**--------------------------------------------------------------------*/
 export async function ffmpeg_cnct(ffmpeg, files = [])
 {
     if (!ffmpeg.isLoaded()) { await ffmpeg.load(); }
@@ -59,3 +66,4 @@ export async function ffmpeg_cnct(ffmpeg, files = [])
     
     return await new Promise((resolve) => { resolve(true); });
 }
+/**--------------------------------------------------------------------*/

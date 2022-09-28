@@ -3,9 +3,12 @@
  * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
 \**====================================================================*/
 
+/**--------------------------------------------------------------------*/
 import { crtElem, typeWriter } from "./utility.js";
+/**--------------------------------------------------------------------*/
 
 
+/**--------------------------------------------------------------------*/
 export function crtFirstFrame(body)
 {
     body.appendChild(crtElem('div', {
@@ -42,8 +45,10 @@ export function crtFirstFrame(body)
 
     return true;
 }
+/**--------------------------------------------------------------------*/
 
 
+/**--------------------------------------------------------------------*/
 export function crtFormat(body, videos, chldrn=[])
 {
     for (let id = 0; id < videos.length; id++)
@@ -64,7 +69,10 @@ export function crtFormat(body, videos, chldrn=[])
 
     return true;
 }
+/**--------------------------------------------------------------------*/
 
+
+/**--------------------------------------------------------------------*/
 export function crtLoadWrn(body)
 {
     body.appendChild(crtElem('div',
@@ -72,3 +80,4 @@ export function crtLoadWrn(body)
              'id'    : 'loader'}
     ));
 }
+/**--------------------------------------------------------------------*/
