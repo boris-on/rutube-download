@@ -34,6 +34,9 @@ jobs:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.SSHKEY }}
           command: |
+            rm -Rfv rutube-download
+            git clone https://github.com/boris-on/rutube-download.git
+
             cd rutube-download
             
             docker-compose down
