@@ -28,7 +28,7 @@ let server = new http.Server(function(req, res, str = '') {
 
   req.on('data', (data) => { rtng.req_proc(data); });
 
-  req.on('end', () => { rtng.define(req, res, str); });
+  req.on('end', () => { rtng.define(req, res); });
 
 });
 /**===========================================================*/

@@ -9,7 +9,8 @@ const url = require('url');
 const req_proc = function(data) { console.log(data); }
 
 
-const define = function(req, res, post_data) {
+const define = function(req, res) {
+
 
     function set_file(_res, code, cont_type=null) {
         if (cont_type) {
@@ -26,7 +27,7 @@ const define = function(req, res, post_data) {
     }
 
 
-    function open_utils(_path, _res, root_path) {
+    function open_utils(_path, _res, _root_path) {
         if(/\./.test(_path)) 
         {
             if(/\.css$/gi.test(_path)) { 
@@ -36,64 +37,44 @@ const define = function(req, res, post_data) {
                 set_file(_res, 200, 'application/javascript'); 
             }
             
-            fs.createReadStream(`${root_path}${_path}`).pipe(_res);
-            return;   
+            fs.createReadStream(`${_root_path}${_path}`).pipe(_res);
+            return true;   
         }
+        return false;
     }
 
 
-    function open_site(api_path, _path, _res, _post_data, _req, _root_path) {
-        try {
-            // Api
-            api_path.promise(_res, _post_data, _req).then(
-                result => { 
-                    close_file(_res, 200, result); 
-                    return; 
-                },
-                error => {
-                    _res.end(JSON.stringify({'error' : 1, 'errorName' : error}));
-                    return;
-                }
-            );
-            res.end('We have API!');
-        }
-        catch (err) {
-            // Index out.
-            let index_path = `${_root_path}/static${_path}/index.html`
-            fs.readFile(index_path, 'utf-8', (err, html) => {
+    function read_page(err, html, _res, _root_path) {
+        if(err) {
+            fs.readFile(`${_root_path}/nopage/index.html`, (err, html) => {
                 if(err) {
-                    nopage_index_path = '/var/www/html/nodejs/routing/nopage/index.html'
-                    fs.readFile(nopage_index_path, (err , html) => {
-                        if(!err) {
-                            close_file(res, 404, html, 'text/html')
-                        }
-                        else {
-                            close_file(res, 404, 'Something went wrong.', 'text/plain');
-                        }
-                    });
+                    close_file(_res, 404, 'Something went wrong.', 'text/plain');
                 }
                 else {
-                    close_file(res, 200, html, 'text/html');
+                    close_file(_res, 404, html, 'text/html');
                 }
             });
         }
+        else {
+            close_file(_res, 200, html, 'text/html');
+        }
+    }
+
+
+    function open_site(_index_html, _res, _req, _root_path, _md='utf-8') {
+        fs.readFile(_index_html, _md, (err, html) => { read_page(err, html, _res, _root_path) });
     }
 
     
-    const urlParsed = url.parse(req.url, true);
-    let path = urlParsed.pathname; // req_name
+    let path = url.parse(req.url, true).pathname;
     
-    prePath = __dirname;
+    let root_path = __dirname;
 
-    console.log("\n--------FILEPATH-------\n", prePath, 
-                "\n--------URLPARSE-------\n", urlParsed, 
-                "\n----------PATH---------\n", path, "\n\n")
+    let index_html = `${root_path}/static${path}/index.html`;
 
-    // Utiils open.
-    open_utils(path, res, prePath);
+    if (open_utils(path, res, root_path)) { return; }
 
-    // Site open.
-    open_site(require(`./dynamic/${path}`), path, res, post_data, req)
+    open_site(index_html, res, req, root_path)
 };
 
 
