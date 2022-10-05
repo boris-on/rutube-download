@@ -258,7 +258,7 @@ func VideoSegmentsProxyRequest(link string) ([]string, error) {
 	url := link
 
 	client := http.Client{
-		Timeout: 60 * time.Second,
+		Timeout: 180 * time.Second,
 	}
 	resp, err := client.Get(url)
 	if err != nil {
@@ -300,7 +300,7 @@ func getSegment(index int, url string, filename string, wg *sync.WaitGroup) erro
 	defer out.Close()
 
 	client := http.Client{
-		Timeout: 60 * time.Second,
+		Timeout: 180 * time.Second,
 	}
 	resp, err := client.Get(url)
 	if err != nil {
