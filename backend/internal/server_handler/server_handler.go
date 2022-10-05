@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/grafov/m3u8"
@@ -255,7 +256,11 @@ func VideoListProxyRequest(link string) (string, error) {
 func VideoSegmentsProxyRequest(link string) ([]string, error) {
 	// url := "proxyserver" + "?url=" + link
 	url := link
-	resp, err := http.Get(url)
+
+	client := http.Client{
+		Timeout: 60 * time.Second,
+	}
+	resp, err := client.Get(url)
 	if err != nil {
 		return []string{}, err
 	}
@@ -294,7 +299,10 @@ func getSegment(index int, url string, filename string, wg *sync.WaitGroup) erro
 	}
 	defer out.Close()
 
-	resp, err := http.Get(url)
+	client := http.Client{
+		Timeout: 60 * time.Second,
+	}
+	resp, err := client.Get(url)
 	if err != nil {
 		return err
 	}
