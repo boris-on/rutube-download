@@ -2,7 +2,7 @@ version: '3'
 
 services:
   frontend:
-    build: ./front
+    build: ./web
     restart: always
     ports:
       - '80:80'
