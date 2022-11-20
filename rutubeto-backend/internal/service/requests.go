@@ -3,7 +3,6 @@ package service
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -56,6 +55,6 @@ func VideoListProxyRequest(url string) ([]rb.Video, error) {
 	if err := json.Unmarshal(videoListJson, &videos); err != nil {
 		return []rb.Video{}, err
 	}
-	fmt.Println(videos)
+
 	return videos, nil
 }
