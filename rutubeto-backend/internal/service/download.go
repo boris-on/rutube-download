@@ -115,7 +115,7 @@ func videoFileRequest(links []string) (string, error) {
 	}
 
 	cmd := ffmpeg.Concat(ffmpegList).Output(mediaPath + fileName + "/mp/video.mp4")
-	err = cmd.OverWriteOutput().ErrorToStdOut().Run()
+	err = cmd.OverWriteOutput().ErrorToStdOut().RunWithResource(0.1, 0.5)
 	if err != nil {
 		// deletePath(fileName)
 		return "", err
@@ -156,7 +156,7 @@ func getSegment(index int, url string, fileName string, wg *sync.WaitGroup) erro
 func convertToMP4(wg *sync.WaitGroup, ch chan int, fileName string, i int) {
 	defer wg.Done()
 	cmd := ffmpeg.Input(mediaPath + fileName + "/" + strconv.Itoa(i+1) + ".ts").Output(mediaPath + fileName + "/mp/" + strconv.Itoa(i+1) + ".mp4")
-	err := cmd.OverWriteOutput().ErrorToStdOut().Run()
+	err := cmd.OverWriteOutput().ErrorToStdOut().RunWithResource(0.1, 0.5)
 	if err != nil {
 		// deletePath(fileName)
 	}
