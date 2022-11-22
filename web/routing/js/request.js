@@ -3,8 +3,22 @@
  * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
 \**====================================================================*/
 
+
 /**--------------------------------------------------------------------*/
-import { ffmpeg_cnvrt, ffmpeg_cnct } from './convert.js'; 
+export async function download_video(attr, out) {
+
+    const anchor = document.createElement('a');
+    anchor.href = URL.createObjectURL(new Blob([out], { type: 'video/mp4' }));
+    anchor.download = 'rutubeto_downloads.mp4';
+
+    document.body.appendChild(anchor);
+
+    anchor.click();
+
+    document.body.removeChild(anchor);
+    
+    return await new Promise((resolve) => { resolve(true); });
+}
 /**--------------------------------------------------------------------*/
 
 
@@ -15,12 +29,9 @@ export async function get_json(url, procFunc, attr)
 
         fetch(url).then(res => res.json()).then(out => {
 
-            if (!out.error) 
-            { 
+            if (!out.error) { 
                 resolve(procFunc(attr, out)); 
-            }
-            else
-            {
+            } else {
                 resolve(!out.error);
             }
 
@@ -33,24 +44,22 @@ export async function get_json(url, procFunc, attr)
 
 
 /**--------------------------------------------------------------------*/
-export async function get_files(ffmpeg, jsn, files = [], id = 0)
-{   
-    for (; id < jsn.segmentsNumber; id++)
-    {
-        await new Promise((resolve, _) => {
+export async function get_mp4(url, procFunc, attr=[])
+{
+    let status = await new Promise((resolve, _) => {
 
-            fetch(`https://rutubeto.ru/getsegment?uuid=${jsn.uuid}&segment=${id + 1}`)
-                .then(res => res.arrayBuffer()).then(buffer => {
-            
-                    resolve(ffmpeg_cnvrt(ffmpeg, buffer, id + 1).then((res) => {
-                        if (res) files.push(res);
-                    }));
+        fetch(url).then(res => res.arrayBuffer()).then(out => {
 
-            }).catch(err => console.error(err));
-            
-        });
-    }
+            if (!out.error) { 
+                resolve(procFunc(attr, out)); 
+            }
+            else {
+                resolve(!out.error);
+            }
 
-    return await new Promise((resolve) => { resolve(ffmpeg_cnct(ffmpeg, files)); });
+        }).catch(err => {throw err});
+    });
+
+    return status;
 }
 /**--------------------------------------------------------------------*/

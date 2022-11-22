@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-    - main
+    - serverProcessing
     
 jobs:
   deploy:
@@ -14,14 +14,19 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          key: ${{ secrets.SSHKEY }}
+          key: ${{ secrets.SSH_KEY }}
           command: |
-            cd rutube-download
-            
-            docker-compose down
-            docker container prune -f
-            
-            git pull
+          
+            if [ -d ./rutube-download ]
+            then 
+              cd rutube-download
+              docker-compose down
+              git pull
+              git branch -a 
+              git checkout serverProcessing
+            else
+              git clone https://github.com/boris-on/rutube-download.git
+              cd rutube-download
+            fi
             
             docker-compose up -d --build
-        

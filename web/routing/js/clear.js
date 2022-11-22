@@ -1,36 +1,19 @@
 /**====================================================================*\
  * clear.js                                            (c) Mtvy, 2022
- * Copyright (c) 2022. Mtvy (Matvei Prudnikov, m.d.prudnik@gmail.com)
+ * Copyright (c) 2022. Mtvy
 \**====================================================================*/
 
-/**--------------------------------------------------------------------*/
 import {isExist} from './utility.js';
 /**--------------------------------------------------------------------*/
 
-
-/**--------------------------------------------------------------------*/
-function removeStatus(elem)
-{
-    try   { elem.remove(); } 
-    catch { return false ; }
-    return true;
+function removeStatus(elem) {
+    try { elem.remove(); } catch { return false; } return true;
 }
-/**--------------------------------------------------------------------*/
 
-
-/**--------------------------------------------------------------------*/
-function removeIfExist(id, doc)
-{
+function removeIfExist(id, doc) {
     return removeStatus(isExist(id), doc);
 }
-/**--------------------------------------------------------------------*/
 
-
-/**--------------------------------------------------------------------*/
-export function clearCont(kwargs)
-{
-    if (kwargs.elem) removeIfExist(kwargs.elem, document);
-
-    return true;
+export function clearCont(kwargs) {
+    if (kwargs.elem) removeIfExist(kwargs.elem, document); return true;
 }
-/**--------------------------------------------------------------------*/
