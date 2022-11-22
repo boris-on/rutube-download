@@ -24,6 +24,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
+	//router.Use(cors.Default()) // Debug
 
 	router.GET("/video-quality-list", h.getVideoQualityList)
 	router.GET("/download", h.download)

@@ -18,11 +18,8 @@ import { clearCont } from './js/clear.js';
 async function proc_blocks(doc, body, procFunc, prms)
 {
     let status = await new Promise((resolve) => {
-        console.log(prms.url, prms.attr);
         resolve(procFunc(prms.url, prms.procFunc, prms.attr)); 
     })
-
-    console.log(status);
 
     if (status) {
         for (let id = 0; id < prms.rmv_elems.length; id++) {
@@ -77,7 +74,8 @@ const VQL = `${LINK}/video-quality-list?url=`, // VQL - video quality link
                 proc_blocks(doc, body, get_mp4, {
                     'rmv_elems' : PRELOAD_FRAME_CLEAR,
                     'url'       : `${DL}${event.target.id}`,
-                    'procFunc'  : download_video
+                    'procFunc'  : download_video,
+                    'init'      :  true
                 });
 
                 break;
