@@ -7,7 +7,7 @@
 /**--------------------------------------------------------------------*/
 const http = require(   'http'  ), 
       rtng = require('./routing'),
-      cnfg = require('./config.js');
+      cnfg = require('./configs/config.js');
 
 let argv = process.argv;
 
