@@ -1,21 +1,16 @@
 # Front Rutubeto.ru
 
-## Simple Run:
-    ```bash
-    node ./server.js
-    ```
-
 ## Run at server:
-    ```bash
-    make run
-    ```
+```bash
+make run
+```
 
 ## Run at localhost:
-    ```bash
-    make debug
-    ```
+```bash
+make debug
+```
 
 ## Simple Run:
-    ```bash
-    node ./server.js
-    ```
+ ```bash
+node ./server.js
+```
