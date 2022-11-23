@@ -7,5 +7,5 @@
 <h2 align="center"> Visit our website <a href="https://rutubeto.ru">Rutubeto.ru</a> </h2>
 
 <p align="center">
-  <img width="600" alt="2" src="https://github.com/boris-on/rutube-download/blob/main/diagram.svg">
+  <img width="600" alt="2" src="./diagram.svg">
 </p>

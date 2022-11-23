@@ -6,4 +6,4 @@ EXPOSE 80
 
 COPY . .
 
-CMD ["node", "server.js"]
+CMD ["make", "run"]

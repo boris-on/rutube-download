@@ -1,6 +1,9 @@
+
 # exclude macOS dir files
 *.DS_Store
-node_modules
-logs.txt
-cmd
 config.js
+logs.txt
+
+cmd
+
+diagram.svg
