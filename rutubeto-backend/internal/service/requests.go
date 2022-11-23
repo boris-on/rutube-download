@@ -10,7 +10,7 @@ import (
 	rb "github.com/mtvy/rutube-download/rutube_backend"
 )
 
-func VideoOptionsProxyRequest(url string) (string, error) {
+func VideoOptionsRequest(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return "", err
@@ -23,13 +23,13 @@ func VideoOptionsProxyRequest(url string) (string, error) {
 	}
 
 	var videoOptions rb.VideoOptions
-	if err := json.Unmarshal(body, &videoOptions); err != nil { // Parse []byte to the go struct pointer
+	if err := json.Unmarshal(body, &videoOptions); err != nil {
 		return "", err
 	}
 	return videoOptions.VideoBalancer.M3U8, nil
 }
 
-func VideoListProxyRequest(url string) ([]rb.Video, error) {
+func VideoListRequest(url string) ([]rb.Video, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return []rb.Video{}, err

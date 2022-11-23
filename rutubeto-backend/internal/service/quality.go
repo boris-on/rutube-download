@@ -15,12 +15,12 @@ func (s *VideoQualityListService) Get(videoUrl string) ([]rb.Video, error) {
 		return []rb.Video{}, err
 	}
 
-	videoOptionsUrl, err := VideoOptionsProxyRequest(apiUrl)
+	videoOptionsUrl, err := VideoOptionsRequest(apiUrl)
 	if err != nil {
 		return []rb.Video{}, err
 	}
 
-	videoQualityList, err := VideoListProxyRequest(videoOptionsUrl)
+	videoQualityList, err := VideoListRequest(videoOptionsUrl)
 	if err != nil {
 		return []rb.Video{}, err
 	}
