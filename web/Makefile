@@ -14,6 +14,10 @@ debug: debug-conf-init put-exports front-run
 debug-conf-init:
 	sh configs/debug.sh
 
+debug-docker: debug-docker-conf-init put-exports front-run
+
+debug-docker-conf-init:
+	sh configs/debug.sh "0.0.0.0"
 #------------------------------------------
 
 put-exports:

@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY . .
 
-CMD ["make", "debug"]
+CMD ["make", "debug-docker"]

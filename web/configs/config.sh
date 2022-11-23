@@ -14,7 +14,12 @@ SERVER_CONFIG_DIR=configs/config.js
 CLIENT_CONFIG_DIR=routing/js/config.js
 
 PROT=http://
-HOST=rutubeto.ru
+if [ -n "$1" ]
+    then
+        HOST=$1
+    else
+        HOST=rutubeto.ru
+fi
 PORT=80
 
 SHOST=0.0.0.0
