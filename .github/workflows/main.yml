@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-    - serverProcessing
+    - main
     
 jobs:
   deploy:
@@ -22,8 +22,6 @@ jobs:
               cd rutube-download
               docker-compose down
               git pull
-              git branch -a 
-              git checkout serverProcessing
             else
               git clone https://github.com/boris-on/rutube-download.git
               cd rutube-download
