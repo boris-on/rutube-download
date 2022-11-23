@@ -17,14 +17,14 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	router.Use(cors.New(cors.Config{
+	/*router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"https://rutubeto.ru"},
 		AllowMethods:     []string{"GET"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
-	}))
-	//router.Use(cors.Default()) // Debug
+	}))*/
+	router.Use(cors.Default()) // Debug
 
 	router.GET("/video-quality-list", h.getVideoQualityList)
 	router.GET("/download", h.download)

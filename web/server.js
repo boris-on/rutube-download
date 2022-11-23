@@ -6,12 +6,13 @@
         
 /**--------------------------------------------------------------------*/
 const http = require(   'http'  ), 
-      rtng = require('./routing');
+      rtng = require('./routing'),
+      cnfg = require('./config.js');
 
 let argv = process.argv;
 
-let port = (argv[2]) ? argv[2] : 80, 
-    host = (argv[3]) ? argv[3] : '0.0.0.0';
+let port = (argv[2]) ? argv[2] : cnfg.PORT, 
+    host = (argv[3]) ? argv[3] : cnfg.SHOST;
 /**--------------------------------------------------------------------*/
 
 

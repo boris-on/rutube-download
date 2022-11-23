@@ -3,3 +3,4 @@
 node_modules
 logs.txt
 cmd
+config.js

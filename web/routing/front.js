@@ -11,6 +11,8 @@ import { get_json, get_mp4, download_video } from './js/request.js';
 import { isExist } from './js/utility.js';
 
 import { clearCont } from './js/clear.js';
+
+import { DL, VQL } from './js/config.js'
 /**--------------------------------------------------------------------*/
 
 
@@ -43,15 +45,6 @@ const PRELOAD_FRAME_CLEAR = [
     'rutubeto_logo',
     'description_panel'
 ];
-
-const PROT = "http://",
-      HOST = "rutubeto.ru",
-      PORT = "";   // empty "" for default port
-
-const LINK = `${PROT}${HOST}${PORT}`
-
-const VQL = `${LINK}/video-quality-list?url=`, // VQL - video quality link
-      DL  = `${LINK}/download?url=`;           // DL  - download link
 /**--------------------------------------------------------------------*/
 
 /**--------------------------------------------------------------------*/
