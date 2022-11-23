@@ -14,7 +14,7 @@ SERVER_CONFIG_DIR=configs/config.js
 CLIENT_CONFIG_DIR=routing/js/config.js
 
 DPROT=http://
-DHOST=localhost
+DHOST=0.0.0.0
 DPORT=8080
 
 BDPORT=8081

@@ -5,9 +5,9 @@ services:
     build: ./web
     restart: always
     ports:
-      - '80:80'
+      - '8080:8080'
   backend:
-    build: ./backend
+    build: ./rutubeto-backend
     restart: always
     ports:
-      - '3001:3001'
+      - '8081:8081'

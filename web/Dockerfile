@@ -1,9 +1,9 @@
 FROM node:latest
 
-WORKDIR /app
+EXPOSE 8080
 
-EXPOSE 80
+WORKDIR /app
 
 COPY . .
 
-CMD ["make", "run"]
+CMD ["make", "debug"]
