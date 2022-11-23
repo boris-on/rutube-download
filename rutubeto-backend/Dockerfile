@@ -1,5 +1,4 @@
 FROM jrottenberg/ffmpeg:4.1-alpine as ffmpeg
-
 FROM golang:latest
 
 WORKDIR /app
